@@ -1,4 +1,4 @@
-textventures
+TextVentures
 ============
 
-A simple text-based adventure system
+A simple text-based adventure system.
