@@ -18,7 +18,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from instances import menu
-from instances import key_navigation
 
 if __name__ == "__main__":
     # Show main menu

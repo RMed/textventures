@@ -68,11 +68,21 @@ class Action:
             # Main menu
             if self.char == 'n':
                 # New game
-                print 'New game (to be implemented)'
+                menu.newgame_menu()
             elif self.char == 'l':
                 # Load game
                 menu.load_menu()
             elif self.char == 'e':
                 # Exit program
                 sys.exit()
+        elif self.action == 'load':
+            # Go back
+            if self.char == 'b':
+                menu.main_menu()
+            # Choose game
+        elif self.action == 'new':
+            # Go back
+            if self.char == 'b':
+                menu.main_menu()
+            # Choose adventure
 

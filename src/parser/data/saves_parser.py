@@ -72,8 +72,9 @@ class SavedGame():
 
         Arguments:
             saveid -- ID of the saved game.
-            savedir -- Directory of the adventure to which this saved
-                   game belongs (relative to the adventures directory).
+            adventuredir  -- directory of the adventure to which this
+               saved game belongs (relative to the adventures directory).
+            progress -- progress in the adventure
         """
         # Define the identification of the saved game
         self.adv_id = saveid

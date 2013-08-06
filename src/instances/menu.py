@@ -28,12 +28,26 @@ import sys, os
 # Configuration directory
 CONF_DIR = os.path.join(os.path.expanduser('~'), '.textventures')
 
+def clear_screen():
+    """Clear the screen when navigating the menu."""
+
+    # Check platform
+    if sys.platform.startswith('win'):
+        # Windows
+        os.system('cls')
+    else:
+        # UNIX
+        os.system('clear')
+
 def main_menu():
     """Display the main menu.
 
     This function must check what keys have been pressed by the player
     for navigation purposes
     """
+
+    # Clear screen
+    clear_screen()
 
     # Check if the configuration directory exists
     if not os.path.isdir(CONF_DIR):
@@ -46,14 +60,14 @@ def main_menu():
             print 'Could not create configuration directory'
 
     # Print program information
-    print 'TextVentures\n'
+    print 'TextVentures - Main Menu\n'
 
     # Print navigation menu
     print '(N)ew game'
     print '(L)oad game'
     print '(E)xit'
 
-    # Main loop
+    # Wait for user input
     while True:
         # Key listener
         key_listener = Listener()
@@ -68,6 +82,14 @@ def load_menu():
     Opens the saves file (if any) and shows all the games saved.
     The player must write the number of the game to load.
     """
+
+    # Clear screen
+    clear_screen()
+
+    # Print information
+    print 'TextVentures - Load Game\n'
+    print '(C)hoose game to load'
+    print '(B)ack\n'
 
     # Saves list
     saves_list = []
@@ -95,18 +117,62 @@ def load_menu():
     else:
         # Print games
         for index, save in enumerate(saves_list):
-            print index
+            print str(index) + ')'
             print 'ID: ' + save.get_id()
             print 'Adventure: ' + save.get_dir()
             print 'Progress: ' + save.get_progress()
             print '--------------'
 
+    # Wait for user input
+    while True:
+        # Key listener
+        key_listener = Listener()
+        key = key_listener()
+        # Action Parser
+        action_parser = Action(key, 'load')
+        action = action_parser()
 
-    print ('\n(B)ack')
-    # Key listener
-    key_listener = Listener()
-    key = key_listener()
+def newgame_menu():
+    """Display the new game menu.
+    
+    Show a list of available adventures and relevant information.
+    """
 
-    if key == 'b':
-        main_menu()
+    # Clear screen
+    clear_screen()
+
+    # Print information
+    print 'TextVentures - New game\n'
+    print '(C)hoose adventure'
+    print '(B)ack\n'
+
+    # Adventure list
+    adventure_list = []
+
+    # Get adventures
+    adventure_parser = pmeta.AdventureParser(CONF_DIR)
+    adventure_list = adventure_parser.get_adventures()
+
+    # Print adventures
+    if not adventure_list:
+        print 'No adventures available'
+    else:
+        for index, adventure in enumerate(adventure_list):
+            print str(index) + ')'
+            print 'Title: ' + str(adventure.get_title())
+            print 'Description: ' + str(adventure.get_description())
+            print 'Author: ' + str(adventure.get_author())
+            print 'Email: ' + str(adventure.get_email())
+            print 'URL: ' + str(adventure.get_url())
+            print 'Version: ' + str(adventure.get_version())
+            print '-----------------'
+
+    # Wait for user input
+    while True:
+        # Key listener
+        key_listener = Listener()
+        key = key_listener()
+        # Action parser
+        action_parser = Action(key, 'new')
+        action = action_parser()
 
