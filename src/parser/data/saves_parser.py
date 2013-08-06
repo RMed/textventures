@@ -50,9 +50,11 @@ class SavesParser():
             saveid = save.get('id')
             # Get the adventure's directory
             savedir = save.get('adventure')
+            # Get the progress
+            saveprog = save.text
 
             # Construct the saved game
-            savedgame = SavedGame(saveid, savedir)
+            savedgame = SavedGame(saveid, savedir, saveprog)
 
             # Add the saved game to the list
             games_list.append(savedgame)
@@ -63,7 +65,7 @@ class SavesParser():
 class SavedGame():
     """Saved game information retreived from the XML file."""
 
-    def __init__(self, saveid, adventuredir):
+    def __init__(self, saveid, adventuredir, progress):
         """SavedGame object.
 
         Creates an object that represents a saved game.
@@ -74,15 +76,21 @@ class SavedGame():
                    game belongs (relative to the adventures directory).
         """
         # Define the identification of the saved game
-        self.id = saveid
+        self.adv_id = saveid
         # Define the directory of the adventure
-        self.advdir = adventuredir
+        self.adv_dir = adventuredir
+        # Define the progress of the adventure
+        self.adv_prog = progress
 
     def get_id(self):
         """Get ID of the saved game."""
-        return self.id
+        return self.adv_id
 
     def get_dir(self):
         """Get the adventure's directory."""
-        return self.advdir
+        return self.adv_dir
+
+    def get_progress(self):
+        """Get the progress of the saved game."""
+        return self.adv_prog
 

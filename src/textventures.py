@@ -21,7 +21,11 @@ from parser.adventure import meta_parser as pmeta
 from parser.adventure import scenario_parser as pscenario
 from parser.data import saves_parser as psaves
 
-import sys
+import xml.etree.ElementTree as XML
+import sys, os
+
+# Configuration directory
+CONF_DIR = ''
 
 class Listener:
     """Gets user input for navigation."""
@@ -67,7 +71,7 @@ class Action:
             print 'New game (to be implemented)'
         elif self.char == 'l':
             # Load game
-            print 'Load game (to be implemented)'
+            load_menu()
         elif self.char == 'e':
             # Exit program
             sys.exit()
@@ -78,6 +82,16 @@ def main_menu():
     This function must check what keys have been pressed by the player
     for navigation purposes
     """
+
+    # Check if the configuration directory exists
+    if not os.path.isdir(CONF_DIR):
+        # Create the directory tree
+        try:
+            os.mkdir(CONF_DIR)
+            os.mkdir(os.path.join(CONF_DIR, 'adventures'))
+            os.mkdir(os.path.join(CONF_DIR, 'adventures', 'stories'))
+        except:
+            print 'Could not create configuration directory'
 
     # Print program information
     print 'TextVentures\n'
@@ -96,7 +110,58 @@ def main_menu():
         action_parser = Action(key)
         action = action_parser()
 
+def load_menu():
+    """Display the load game menu.
+
+    Opens the saves file (if any) and shows all the games saved.
+    The player must write the number of the game to load.
+    """
+
+    # Saves list
+    saves_list = []
+
+    # Check if the saves file exists
+    saves_file = os.path.join(CONF_DIR, 'adventures', 'saves.xml')
+    if os.path.isfile(saves_file):
+        # Parse the file
+        saves_parser = psaves.SavesParser(saves_file)
+        # Fill the list
+        saves_list = saves_parser.get_saves()
+    else:
+        try:
+            # Need to create the file
+            saves_tag = XML.Element('savefile')
+            saves_tree = XML.ElementTree(saves_tag)
+            saves_tree.write(saves_file)
+        except:
+            print 'Could not create the saves file'
+
+    # Print the saves (if any)
+    if not saves_list:
+        # No saved games
+        print 'There are no saved games'
+    else:
+        # Print games
+        for index, save in enumerate(saves_list):
+            print index
+            print 'ID: ' + save.get_id()
+            print 'Adventure: ' + save.get_dir()
+            print 'Progress: ' + save.get_progress()
+            print '--------------'
+
+
+    print ('\n(B)ack')
+    # Key listener
+    key_listener = Listener()
+    key = key_listener()
+
+    if key == 'b':
+        main_menu()
+
 if __name__ == "__main__":
+    # Set configuration directory
+    global CONF_DIR
+    CONF_DIR = os.path.join(os.path.expanduser('~'), '.textventures')
     # Show main menu
     main_menu()
 
