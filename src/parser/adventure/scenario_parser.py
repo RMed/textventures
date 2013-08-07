@@ -19,7 +19,7 @@
 
 import xml.etree.ElementTree as XML
 
-class ScenarioParser():
+class Scenario():
     """Scenario XML file parser.
 
     The XML file contains a title that is displayed on top, text paragraphs

@@ -34,6 +34,8 @@ class SavesParser():
         Arguments:
             save_file -- path to the xml file to parse.
         """
+        # Define save file path
+        self.save_file = save_file
         # Define the contents of the xml file
         self.save_tree = XML.parse(save_file)
         # Find the root of the xml tree
@@ -54,7 +56,7 @@ class SavesParser():
             saveprog = save.text
 
             # Construct the saved game
-            savedgame = SavedGame(saveid, savedir, saveprog)
+            savedgame = Game(saveid, savedir, saveprog)
 
             # Add the saved game to the list
             games_list.append(savedgame)
@@ -62,13 +64,46 @@ class SavesParser():
         # Return saved games list
         return games_list
 
-class SavedGame():
-    """Saved game information retreived from the XML file."""
+    def save_game(self, game):
+        """Save the progress of the game into the saves file.
+
+        This will search for the ID of the game and overwrite the
+        previous save, if any.
+
+        Arguments:
+            game -- Game object
+        """
+
+        # Search for ID coincidence
+        for index, game_id in enumerate(self.save_root.iter('rank')):
+                # Overwrite game if found
+                if game_id.text == game.get_id():
+                    self.save_root[index].text = game.get_progress()
+                    return
+
+        # Add the element to the file
+        new_save = XML.Element('save')
+        new_save_id = XML.SubElement(new_save, 'id')
+        new_save_adv = XML.SubElement(new_save, 'adventure')
+
+        # Define contents
+        new_save_id = game.get_id()
+        new_save_adv = game.get_dir()
+        
+        # Add to root
+        self.save_root.append(new_save)
+        
+        # Save to file
+        self.save_tree.write(self.save_file)
+
+
+class Game():
+    """Game information."""
 
     def __init__(self, saveid, adventuredir, progress):
-        """SavedGame object.
+        """Game object.
 
-        Creates an object that represents a saved game.
+        Creates an object that represents a game.
 
         Arguments:
             saveid -- ID of the saved game.
