@@ -21,6 +21,7 @@ from parser.adventure import meta_parser as pmeta
 from parser.adventure import scenario_parser as pscenario
 from parser.data import saves_parser as psaves
 from key_navigation import Listener, Action
+from game import Game
 
 import xml.etree.ElementTree as XML
 import sys, os
@@ -175,4 +176,37 @@ def newgame_menu():
         # Action parser
         action_parser = Action(key, 'new')
         action = action_parser()
+        
+        if not action == 'c':
+            continue
+
+        # Ask for the game to load
+        input_num = raw_input('Please write an adventure number to load: ')
+        # Check if int
+        try:
+            game_index = int(input_num)
+            # Check if out of bounds
+            if game_index >= len(adventure_list):
+                print 'Please write a valid number'
+                continue
+        except:
+            print 'Please write a valid number'
+            continue
+
+        # Get directory
+        adventure_dir = adventure_list[game_index].get_location()
+
+        # Ask for an ID for the game
+        input_id = raw_input('Please write an ID for this adventure: ')
+
+        # Get the first scenario
+        first = adventure_list[game_index].get_first()
+
+        # Build game
+        new_game = psaves.Game(input_id, adventure_dir, first)
+
+        # Load the game
+        start_game = Game(new_game, CONF_DIR)
+        game = start_game()
+
 

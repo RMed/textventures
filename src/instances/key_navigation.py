@@ -85,4 +85,6 @@ class Action:
             if self.char == 'b':
                 menu.main_menu()
             # Choose adventure
+            elif self.char == 'c':
+                return 'c'
 

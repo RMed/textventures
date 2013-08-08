@@ -26,45 +26,43 @@ import os, sys
 class Game():
     """Main Game instance."""
 
-    def __init__(self, game, saves_parser):
+    def __init__(self, game, conf_dir):
         """This instance is in charge of playing through the adventure.
 
         Arguments:
-            game -- Game object
+            game -- game object
+            conf_dir -- configuration directory
         """
 
         # Define game
         self.game = game
         # Define adventure directory
-        self.directory = os.path.join(os.path.expanduser('~'), 
-                            '.textventures', 'adventures', 'stories',
+        self.directory = os.path.join(conf_dir, 'adventures', 'stories',
                                 game.get_dir())
-        # Define the saves parser obtained from the menu
-        self.saves_parser = saves_parser
+        # Define the saves parser
+        self.saves_parser = psaves.SavesParser(os.path.join(conf_dir, 
+                                'adventures', 'saves.xml'))
         # Define scenario parser
         self.scenario = pscenario.Scenario(os.path.join(self.directory,
                                             game.get_progress()))
 
     def __call__(self):
         # Load the scenario
-        self.load_scenario(self.scenario)
+        self.load_scenario()
 
-    def update_scenario(self, progress):
+    def update_scenario(self, scenario):
         """Update current scenario.
         
         Arguments:
-            progress -- new progress
+            scenario -- new scenario
         """
 
         self.scenario = pscenario.Scenario(os.path.join(self.directory,
-                                            progress))
+                                            scenario))
+        self.load_scenario()
 
-    def load_scenario(self, scenario):
-        """Display the current scenario.
-
-        Arguments:
-            scenario -- scenario parser to load
-        """
+    def load_scenario(self):
+        """Display the current scenario."""
 
         # Save progress
         self.saves_parser.save_game(self.game)
@@ -88,39 +86,48 @@ class Game():
             print '\n'
         
         # Get commands
-        scenario_commands = self.scenario.get_comands()
+        scenario_commands = self.scenario.get_commands()
 
         # Wait for user input
         while True:
-            input_command = raw_input("-> ")
+            input_command = raw_input('-> ')
+            self.perform_action(input_command, scenario_commands)
+    
+    def perform_action(self, input_command, command_list):
 
-            # Check commands
-            acted = False
-            for command in scenario_commands:
-                if command.get_name() == input_command:
-                    # Command matches
-                    action = command.get_action()
-                    # Check what to do
-                    if action.get_type() == 'print':
-                        # Print text
-                        print action.get_content()
-                    else:
-                        # Jump
-                       self.update_scenario(action.get_content())
-                       self.load_scenario(self.scenario)
-                    # Action done
-                    acted = True
+        """Perform an action.
 
-                # Default action to take
-                if command.get_type() == 'default':
-                    default_action = command.get_action()
+        Check player's input and compare it with the command list.
 
-            # No action taken
-            if not acted:
-                if default_action.get_type() == 'jump':
-                    # Jump
-                    self.update_scenario(default_action.get_content())
-                else:
+        Arguments:
+            input_command -- command entered by the user
+            command_list -- available commands in the scenario
+        """
+
+        # Check the commands
+        for command in command_list:
+            if command.get_name() == input_command:
+                # Command matches
+                action = command.get_action()
+                # Check what to do
+                if action.get_type() == 'print':
                     # Print text
-                    print default_action.get_content()
+                    print action.get_content()
+                    return
+                else:
+                    # Jump
+                    self.update_scenario(action.get_content())
+            
+            # Default action to take
+            if command.get_type() == 'default':
+                default_action = command.get_action()
+
+        # Did not perform any action
+        if default_action.get_type() == 'print':
+            # Print text
+            print default_action.get_content()
+            return
+        else:
+            # Jump
+            self.update_scenario(default_action.get_content())
 

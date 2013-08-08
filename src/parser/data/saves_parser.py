@@ -77,19 +77,16 @@ class SavesParser():
         # Search for ID coincidence
         for index, game_id in enumerate(self.save_root.iter('rank')):
                 # Overwrite game if found
-                if game_id.text == game.get_id():
+                if game_id.text == str(game.get_id()):
                     self.save_root[index].text = game.get_progress()
                     return
 
         # Add the element to the file
         new_save = XML.Element('save')
-        new_save_id = XML.SubElement(new_save, 'id')
-        new_save_adv = XML.SubElement(new_save, 'adventure')
+        new_save.set('id', game.get_id())
+        new_save.set('adventure', game.get_dir())
+        new_save.text = game.get_progress()        
 
-        # Define contents
-        new_save_id = game.get_id()
-        new_save_adv = game.get_dir()
-        
         # Add to root
         self.save_root.append(new_save)
         
