@@ -64,9 +64,11 @@ def main_menu():
     print 'TextVentures - Main Menu\n'
 
     # Print navigation menu
-    print '(N)ew game'
-    print '(L)oad game'
-    print '(E)xit'
+    print '[N]ew game'
+    print '[L]oad game\n'
+    print '[H]elp'
+    print '[A]bout'
+    print '[E]xit'
 
     # Wait for user input
     while True:
@@ -89,8 +91,6 @@ def load_menu():
 
     # Print information
     print 'TextVentures - Load Game\n'
-    print '(C)hoose game to load'
-    print '(B)ack\n'
 
     # Saves list
     saves_list = []
@@ -124,6 +124,10 @@ def load_menu():
             print 'Progress: ' + save.get_progress()
             print '--------------'
 
+    # Show actions
+    print '\n[C]hoose game to load'
+    print '[B]ack'
+
     # Wait for user input
     while True:
         # Key listener
@@ -133,6 +137,38 @@ def load_menu():
         action_parser = Action(key, 'load')
         action = action_parser()
 
+        if not action == 'c':
+            continue
+
+        # Ask for the game to load
+        input_num = raw_input('Please write a game number to load: ')
+        # Check if int
+        try:
+            game_index = int(input_num)
+            # Check if out of bounds
+            if game_index >= len(saves_list):
+                print 'Please write a valid number'
+                continue
+        except:
+            print 'Please write a valid number'
+            continue
+
+        # Get ID
+        adventure_id = saves_list[game_index].get_id()
+
+        # Get directory
+        adventure_dir = saves_list[game_index].get_dir()
+
+        # Get the progress
+        progress = saves_list[game_index].get_progress()
+
+        # Build game
+        loaded_game = psaves.Game(adventure_id, adventure_dir, progress)
+
+        # Load the game
+        start_game = Game(loaded_game, CONF_DIR)
+        game = start_game()
+        
 def newgame_menu():
     """Display the new game menu.
     
@@ -142,10 +178,8 @@ def newgame_menu():
     # Clear screen
     clear_screen()
 
-    # Print information
+    # Print header
     print 'TextVentures - New game\n'
-    print '(C)hoose adventure'
-    print '(B)ack\n'
 
     # Adventure list
     adventure_list = []
@@ -167,6 +201,10 @@ def newgame_menu():
             print 'URL: ' + str(adventure.get_url())
             print 'Version: ' + str(adventure.get_version())
             print '-----------------'
+
+    # Show actions
+    print '\n[C]hoose adventure to start'
+    print '[B]ack'
 
     # Wait for user input
     while True:

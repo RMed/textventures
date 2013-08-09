@@ -75,10 +75,14 @@ class SavesParser():
         """
 
         # Search for ID coincidence
-        for index, game_id in enumerate(self.save_root.iter('rank')):
+        print game.get_id()
+        for index, saved_game in enumerate(self.save_root):
                 # Overwrite game if found
-                if game_id.text == str(game.get_id()):
+                if (saved_game.get('id') == game.get_id()) and \
+                        (saved_game.get('adventure') == game.get_dir()):
+
                     self.save_root[index].text = game.get_progress()
+                    self.save_tree.write(self.save_file)
                     return
 
         # Add the element to the file
@@ -126,4 +130,8 @@ class Game():
     def get_progress(self):
         """Get the progress of the saved game."""
         return self.adv_prog
+
+    def set_progress(self, new_progress):
+        """Update the progress of the saved game."""
+        self.adv_prog = new_progress
 

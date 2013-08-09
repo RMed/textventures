@@ -22,6 +22,7 @@ from parser.adventure import scenario_parser as pscenario
 from parser.data import saves_parser as psaves
 
 import os, sys
+import menu
 
 class Game():
     """Main Game instance."""
@@ -57,8 +58,12 @@ class Game():
             scenario -- new scenario
         """
 
+        # Update the progress
+        self.game.set_progress(scenario)
+        # Update the scenario
         self.scenario = pscenario.Scenario(os.path.join(self.directory,
-                                            scenario))
+                                              scenario))
+        # Load the scenario
         self.load_scenario()
 
     def load_scenario(self):
@@ -103,6 +108,11 @@ class Game():
             input_command -- command entered by the user
             command_list -- available commands in the scenario
         """
+
+        # Check if the user wants to leave
+        if input_command == 'exit':
+            # Go to main menu
+            menu.main_menu()
 
         # Check the commands
         for command in command_list:

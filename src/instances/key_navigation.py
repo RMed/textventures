@@ -80,11 +80,13 @@ class Action:
             if self.char == 'b':
                 menu.main_menu()
             # Choose game
+            elif self.char == 'c':
+                return self.char
         elif self.action == 'new':
             # Go back
             if self.char == 'b':
                 menu.main_menu()
             # Choose adventure
             elif self.char == 'c':
-                return 'c'
+                return self.char
 
