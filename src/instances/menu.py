@@ -89,7 +89,7 @@ def load_menu():
     # Clear screen
     clear_screen()
 
-    # Print information
+    # Print header
     print 'TextVentures - Load Game\n'
 
     # Saves list
@@ -142,6 +142,11 @@ def load_menu():
 
         # Ask for the game to load
         input_num = raw_input('Please write a game number to load: ')
+
+        # Check if the player wants to leave
+        if input_num == 'cancel':
+            load_menu()
+
         # Check if int
         try:
             game_index = int(input_num)
@@ -220,6 +225,11 @@ def newgame_menu():
 
         # Ask for the game to load
         input_num = raw_input('Please write an adventure number to load: ')
+
+        # Check if the player wants to leave
+        if input_num == 'cancel':
+            newgame_menu()
+
         # Check if int
         try:
             game_index = int(input_num)
@@ -247,4 +257,87 @@ def newgame_menu():
         start_game = Game(new_game, CONF_DIR)
         game = start_game()
 
+def help_menu():
+    """Display the help menu.
+    
+    Show how to navigate and play the adventures."""
+
+    # Clear screen
+    clear_screen()
+
+    # Print header
+    print 'TextVentures - Help\n'
+
+    # Print menu navigation help
+    print '--- MENU NAVIGATION ---'
+    print "Navigating through TextVenture's menus is fairly simple: in the"
+    print "different menus, you will see the available options in the form"
+    print "'[B]ack' (which, in this case, will take you back to the main"
+    print "menu). The character between the braces represents the key to"
+    print "be pressed in order to perform that action.\n"
+
+    # Print game choosing help
+    print '--- CHOOSING A GAME ---'
+    print "In the New Game and Load Game menus, you will be presented with"
+    print "several games available to you. In order to play any of these"
+    print "games, you must first press the specified character (usually"
+    print "[C]) and then write the game number. If you enter this mode and"
+    print "want to leave, simply write the word 'cancel' and you will"
+    print "return to the menu mode.\n"
+
+    # Print adventure help
+    print '--- PLAYING ---'
+    print "While playing, the menu navigation keys will not work. Instead,"
+    print "you will be presented with the prompt '->' and you will have to"
+    print "write the correct command in order to advance in the story."
+    print "Note that there may be several commands for each scenario of"
+    print "the adventure. If you want to leave the game, simply write the"
+    print "word 'exit' and you will be back in the main menu."
+    print "The game is saved every time a scenario is loaded, so you do"
+    print "not need to worry about your progress being lost.\n"
+
+    # Show actions
+    print '[B]ack'
+
+    # Wait for user input
+    while True:
+        # Key listener
+        key_listener = Listener()
+        key = key_listener()
+        # Action parser
+        action_parser = Action(key, 'help')
+        action = action_parser()
+
+def about_menu():
+    """Display the About menu containing program information."""
+
+    # Clear screen
+    clear_screen()
+
+    # Print header
+    print 'TextVentures - About\n'
+
+    # Print general information
+    print 'A simple text-based adventure system.\n'
+
+    # Print license information
+    print 'TextVentures version 0.0.1' 
+    print 'Copyright (C) 2013 Rafael Medina García (RMed)\n'
+
+    print 'TextVentures comes with ABSOLUTELY NO WARRANYY. This is free'
+    print 'software, and you are welcome to redistribute it under the'
+    print 'conditions set by the GNU General Public License v2.0; please'
+    print 'see the LICENSE file for details.\n'
+
+    # Show actions
+    print '[B]ack'
+
+    # Wait for user input
+    while True:
+        # Key listener
+        key_listener = Listener()
+        key = key_listener()
+        # Action parser
+        action_parser = Action(key, 'about')
+        action = action_parser()
 

@@ -67,26 +67,48 @@ class Action:
         if self.action == 'main':
             # Main menu
             if self.char == 'n':
-                # New game
+                # New game menu
                 menu.newgame_menu()
             elif self.char == 'l':
-                # Load game
+                # Load game menu
                 menu.load_menu()
+            elif self.char == 'h':
+                # Help menu
+                menu.help_menu()
+            elif self.char == 'a':
+                # About menu
+                menu.about_menu()
             elif self.char == 'e':
                 # Exit program
                 sys.exit()
+
         elif self.action == 'load':
-            # Go back
+            # Load menu
             if self.char == 'b':
+                # Back to main menu
                 menu.main_menu()
-            # Choose game
             elif self.char == 'c':
+                # Choose game
                 return self.char
+
         elif self.action == 'new':
-            # Go back
+            # New game menu
             if self.char == 'b':
+                # Back to main menu
                 menu.main_menu()
-            # Choose adventure
             elif self.char == 'c':
+                # Choose game
                 return self.char
+
+        elif self.action == 'help':
+            # Help menu
+            if self.char == 'b':
+                # Back to main menu
+                menu.main_menu()
+
+        elif self.action == 'about':
+            # About menu
+            if self.char == 'b':
+                # Back to main menu
+                menu.main_menu()
 
