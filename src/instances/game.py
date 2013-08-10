@@ -99,7 +99,6 @@ class Game():
             self.perform_action(input_command, scenario_commands)
     
     def perform_action(self, input_command, command_list):
-
         """Perform an action.
 
         Check player's input and compare it with the command list.
@@ -140,4 +139,3 @@ class Game():
         else:
             # Jump
             self.update_scenario(default_action.get_content())
-
