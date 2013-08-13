@@ -38,11 +38,11 @@ class Game():
         # Define game
         self.game = game
         # Define adventure directory
-        self.directory = os.path.join(conf_dir, 'adventures', 'stories',
+        self.directory = os.path.join(conf_dir, 'adventures',
                                 game.get_dir())
         # Define the saves parser
         self.saves_parser = psaves.SavesParser(os.path.join(conf_dir, 
-                                'adventures', 'saves.xml'))
+                'saves.xml'))
         # Define scenario parser
         self.scenario = pscenario.Scenario(os.path.join(self.directory,
                                             game.get_progress()))
@@ -57,19 +57,14 @@ class Game():
         Arguments:
             scenario -- new scenario
         """
-        
-        try:
-            # Update the progress
-            self.game.set_progress(scenario)
-            # Update the scenario
-            self.scenario = pscenario.Scenario(os.path.join(self.directory,
-                                              scenario))
-            # Load the scenario
-            self.load_scenario()
-        except:
-            print 'ERROR: Could not load scenario file: ' + \
-                str(self.scenario.get_title())
-            sys.exit(-1)
+
+        # Update the progress
+        self.game.set_progress(scenario)
+        # Update the scenario
+        self.scenario = pscenario.Scenario(os.path.join(self.directory,
+                scenario))
+        # Load the scenario
+        self.load_scenario()
 
     def load_scenario(self):
         """Display the current scenario."""
