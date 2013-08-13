@@ -56,7 +56,6 @@ def main_menu():
         try:
             os.mkdir(CONF_DIR)
             os.mkdir(os.path.join(CONF_DIR, 'adventures'))
-            os.mkdir(os.path.join(CONF_DIR, 'adventures', 'stories'))
         except:
             print 'Could not create configuration directory'
 
@@ -96,7 +95,7 @@ def load_menu():
     saves_list = []
 
     # Check if the saves file exists
-    saves_file = os.path.join(CONF_DIR, 'adventures', 'saves.xml')
+    saves_file = os.path.join(CONF_DIR, 'saves.xml')
     if os.path.isfile(saves_file):
         # Parse the file
         saves_parser = psaves.SavesParser(saves_file)

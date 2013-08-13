@@ -29,7 +29,7 @@ class AdventureParser():
         """
 
         # Define the adventures directory
-        self.adventures_dir = os.path.join(conf_dir, 'adventures', 'stories')
+        self.adventures_dir = os.path.join(conf_dir, 'adventures')
 
     def get_adventures(self):
         """Get a list of adventures."""

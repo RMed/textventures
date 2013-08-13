@@ -35,6 +35,7 @@ class Scenario():
         Arguments:
             scenario_file -- path to the xml file to parse
         """
+
         # Define the contents of the xml file
         self.scenario_tree = XML.parse(scenario_file)
         # Find the root of the xml tree
@@ -46,6 +47,7 @@ class Scenario():
 
     def get_paragraphs(self):
         """Get the text paragraphs to be written on screen."""
+        
         paragraph_list = []
 
         # Loop through the paragraphs
@@ -56,107 +58,83 @@ class Scenario():
         # Return paragraph list
         return paragraph_list
 
-    def get_commands(self):
-        """Get the available commands for the scenario."""
-        command_list = []
+    def get_actions(self):
+        """Get the available actions for the scenario."""
         
-        # Loop through the commands
-        for command in self.scenario_root.findall('command'):
-            # Get type attribute
-            command_type = command.get('type')
-            # Get command name if type is 'input'
-            if command_type == 'input':
-                command_name = command.get('name')
-            else:
-                command_name = None
+        action_list = []
 
-            # Parse action of the command
-            # TODO: enable the use of multiple actions
-            action = command.find('action')
+        # Loop through the actions
+        for action in self.scenario_root.findall('action'):
+            # Get input type
+            input_type = action.get('input')
             # Get action type
             action_type = action.get('type')
-            # Get action content
-            action_content = action.text
+            # Get content
+            action_content = action.get('content')
 
-            # Construct the action
-            scenario_action = ScenarioAction(action_type, action_content)
-            # Construct the command
-            scenario_command = ScenarioCommand(command_type, command_name, scenario_action)
+            # Get a list of commands
+            command_list = []
+            # Loop through the commands
+            for command in action.iter('command'):
+                # Add command to list
+                command_list.append(command.text)
 
-            # Add the command to the list
-            command_list.append(scenario_command)
+            # Create ScenarioAction object
+            new_action = ScenarioAction(input_type, action_type,
+                    action_content, command_list)
 
-        # Return command list
-        return command_list
+            # Add action to list
+            action_list.append(new_action)
 
-class ScenarioCommand():
-    """Command that can be used by the player.
-
-    The type of commands available are:
-
-    input -- executed when the player's input matches the command name
-    default -- executed when the player's input was not recognized
-    """
-
-    def __init__(self, parsed_type, parsed_name, parsed_action):
-        """Command object.
-
-        Creates an object from the parsed information of the command.
-
-        Arguments:
-            parsed_type -- command type
-            parsed_action -- action attached to the command
-            parsed_name -- command name, available with type 'input'
-        """
-        # Define command type
-        self.command_type = parsed_type
-        # Define command name (not necessary if type is 'default')
-        self.command_name = parsed_name
-        # Define action attached to the command
-        self.command_action = parsed_action
-
-    def get_type(self):
-        """Get command type."""
-        return self.command_type
-
-    def get_name(self):
-        """Get command name."""
-        return self.command_name
-
-    def get_action(self):
-        """Get action to perform"""
-        return self.command_action
+        # Return list
+        return action_list
 
 class ScenarioAction():
-    """Action attached to a command.
+    """Available action in the scenario.
 
-    The type of actions available are:
+    An action may have as many commands attached as needed, meaning that
+    any of the commands specified will trigger the action.
 
-    print -- print a text on screen
-    jump -- jump to another scenario
+    The 'input' tag specifies if the action is to be performed when the
+    player issues a known command (player) or when the command is not
+    recognized (default). There can only be one default action.
+
+    The 'type' tag shows the kind of action to perform. The available types
+    are 'jump', which leads to another scenario and has an extra tag
+    'target', or 'text', which prints a message on screen.
     """
 
-    def __init__(self, parsed_type, parsed_content):
-        """Action object.
-
-        Creates an object from the parsed information of the action.
+    def __init__(self, input_type, action_type, content, command_list):
+        """ScenarioAction object.
 
         Arguments:
-            parsed_type -- action type
-            parsed_content -- action content, may be a text or a scenario
+            input_type -- whether the action is performed when player
+                issues a command (player) or when the command is not
+                recognized (default)
+            action_type -- whether the action prints text on screen
+                (text) or loads another scenario (jump)
+            command_list -- commands attached to the action
+            content -- jump destination or text to print
         """
-        # Define action type
-        self.action_type = parsed_type
-        # Define action content
-        self.action_content = parsed_content
 
-    def get_type(self):
-        """Get action type."""
+        self.input_type = input_type
+        self.action_type = action_type
+        self.content = content
+        self.command_list = command_list
+
+    def get_input_type(self):
+        """Get the input type"""
+        return self.input_type
+
+    def get_action_type(self):
+        """Get the action type"""
         return self.action_type
 
     def get_content(self):
-        """Get the content of the action, may be a text or a jump
-        destination.
-        """
-        return self.action_content
+        """Get action content"""
+        return self.content
+
+    def get_command_list(self):
+        """Get the command list"""
+        return self.command_list
 
