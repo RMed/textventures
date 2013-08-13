@@ -57,14 +57,19 @@ class Game():
         Arguments:
             scenario -- new scenario
         """
-
-        # Update the progress
-        self.game.set_progress(scenario)
-        # Update the scenario
-        self.scenario = pscenario.Scenario(os.path.join(self.directory,
+        
+        try:
+            # Update the progress
+            self.game.set_progress(scenario)
+            # Update the scenario
+            self.scenario = pscenario.Scenario(os.path.join(self.directory,
                                               scenario))
-        # Load the scenario
-        self.load_scenario()
+            # Load the scenario
+            self.load_scenario()
+        except:
+            print 'ERROR: Could not load scenario file: ' + \
+                str(self.scenario.get_title())
+            sys.exit(-1)
 
     def load_scenario(self):
         """Display the current scenario."""
@@ -90,22 +95,22 @@ class Game():
             print p
             print '\n'
         
-        # Get commands
-        scenario_commands = self.scenario.get_commands()
+        # Get actions 
+        scenario_actions = self.scenario.get_actions()
 
         # Wait for user input
         while True:
             input_command = raw_input('-> ')
-            self.perform_action(input_command, scenario_commands)
+            self.perform_action(input_command, scenario_actions)
     
-    def perform_action(self, input_command, command_list):
+    def perform_action(self, input_command, action_list):
         """Perform an action.
 
         Check player's input and compare it with the command list.
 
         Arguments:
             input_command -- command entered by the user
-            command_list -- available commands in the scenario
+            action_list -- available actions for the scenario
         """
 
         # Check if the user wants to leave
@@ -113,29 +118,34 @@ class Game():
             # Go to main menu
             menu.main_menu()
 
-        # Check the commands
-        for command in command_list:
-            if command.get_name() == input_command:
-                # Command matches
-                action = command.get_action()
-                # Check what to do
-                if action.get_type() == 'print':
-                    # Print text
-                    print action.get_content()
-                    return
-                else:
-                    # Jump
-                    self.update_scenario(action.get_content())
-            
-            # Default action to take
-            if command.get_type() == 'default':
-                default_action = command.get_action()
+        # Check the actions
+        for action in action_list:
+            # Check if default action
+            if action.get_input_type() == 'default':
+                # Save in case it needs to be executed
+                default_action = action
+                continue
 
+            # Check the commands
+            for command in action.get_command_list():
+                # Check if player's input is in the command list
+                if input_command.lower() == command.lower():
+                    # Command match found
+                    if action.get_action_type() == 'text':
+                        # Print text
+                        print action.get_content()
+                        return
+                    else:
+                        # Jump
+                        self.update_scenario(action.get_content())
+            
         # Did not perform any action
-        if default_action.get_type() == 'print':
+
+        if default_action.get_action_type() == 'text':
             # Print text
             print default_action.get_content()
             return
         else:
             # Jump
             self.update_scenario(default_action.get_content())
+
