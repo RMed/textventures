@@ -17,9 +17,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-from parser.adventure import meta_parser as pmeta
-from parser.adventure import scenario_parser as pscenario
-from parser.data import saves_parser as psaves
+from .. parser.adventure import metadata
+from .. parser.data import saves
 from key_navigation import Listener, Action
 from game import Game
 
@@ -98,7 +97,7 @@ def load_menu():
     saves_file = os.path.join(CONF_DIR, 'saves.xml')
     if os.path.isfile(saves_file):
         # Parse the file
-        saves_parser = psaves.SavesParser(saves_file)
+        saves_parser = saves.SavesParser(saves_file)
         # Fill the list
         saves_list = saves_parser.get_saves()
     else:
@@ -167,7 +166,7 @@ def load_menu():
         progress = saves_list[game_index].get_progress()
 
         # Build game
-        loaded_game = psaves.Game(adventure_id, adventure_dir, progress)
+        loaded_game = saves.Game(adventure_id, adventure_dir, progress)
 
         # Load the game
         start_game = Game(loaded_game, CONF_DIR)
@@ -189,7 +188,7 @@ def newgame_menu():
     adventure_list = []
 
     # Get adventures
-    adventure_parser = pmeta.AdventureParser(CONF_DIR)
+    adventure_parser = metadata.AdventureParser(CONF_DIR)
     adventure_list = adventure_parser.get_adventures()
 
     # Print adventures
@@ -250,7 +249,7 @@ def newgame_menu():
         first = adventure_list[game_index].get_first()
 
         # Build game
-        new_game = psaves.Game(input_id, adventure_dir, first)
+        new_game = saves.Game(input_id, adventure_dir, first)
 
         # Load the game
         start_game = Game(new_game, CONF_DIR)

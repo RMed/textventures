@@ -17,9 +17,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-from parser.adventure import meta_parser as pmeta
-from parser.adventure import scenario_parser as pscenario
-from parser.data import saves_parser as psaves
+from .. parser.adventure import scenario
+from .. parser.data import saves
 
 import os, sys
 import menu
@@ -41,17 +40,17 @@ class Game():
         self.directory = os.path.join(conf_dir, 'adventures',
                                 game.get_dir())
         # Define the saves parser
-        self.saves_parser = psaves.SavesParser(os.path.join(conf_dir, 
+        self.saves_parser = saves.SavesParser(os.path.join(conf_dir, 
                 'saves.xml'))
         # Define scenario parser
-        self.scenario = pscenario.Scenario(os.path.join(self.directory,
+        self.scenario = scenario.Scenario(os.path.join(self.directory,
                                             game.get_progress()))
 
     def __call__(self):
         # Load the scenario
         self.load_scenario()
 
-    def update_scenario(self, scenario):
+    def update_scenario(self, new_scenario):
         """Update current scenario.
         
         Arguments:
@@ -59,10 +58,10 @@ class Game():
         """
 
         # Update the progress
-        self.game.set_progress(scenario)
+        self.game.set_progress(new_scenario)
         # Update the scenario
-        self.scenario = pscenario.Scenario(os.path.join(self.directory,
-                scenario))
+        self.scenario = scenario.Scenario(os.path.join(self.directory,
+                new_scenario))
         # Load the scenario
         self.load_scenario()
 
