@@ -17,6 +17,18 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import menu
-import play
-import key_navigation
+"""
+This file contains global variables used across several modules. These
+variables must not be modified by the program.
+"""
+import os
+
+# TextVentures directory in user folder
+textventures_dir = os.path.join(os.path.expanduser('~'), '.textventures')
+# Adventure directory
+adventures_dir = os.path.join(textventures_dir, 'adventures')
+# Save file location
+saves_file = os.path.join(textventures_dir, 'saves.xml')
+# Program version
+version = '0.0.1'
+

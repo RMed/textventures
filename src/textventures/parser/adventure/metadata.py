@@ -17,56 +17,47 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+from ... import config
+
 import xml.etree.ElementTree as XML
 import os
 
-class AdventureParser():
-    """Adventure parser."""
+def get_adventures():
+    """Get a list of adventures contained in the adventure directory."""
 
-    def __init__(self, conf_dir):
-        """Creates an object that obtains the information of all the
-        available adventures.
-        """
+    # Adventure list
+    adventure_list = []
 
-        # Define the adventures directory
-        self.adventures_dir = os.path.join(conf_dir, 'adventures')
+    # Get adventures
+    for root, dirs, files in os.walk(config.adventures_dir):
+        for adv in dirs:
+            try:
+                # Parse adventure file
+                adventure_file = os.path.join(root, adv, 
+                        'metadventure.xml')
+                adventure_tree = XML.parse(adventure_file)
+                adventure_root = adventure_tree.getroot()
 
-    def get_adventures(self):
-        """Get a list of adventures."""
+                # Get information
+                title = adventure_root.find('title').text
+                desc = adventure_root.find('description').text
+                author = adventure_root.find('author').text
+                email = adventure_root.find('email').text
+                url = adventure_root.find('url').text
+                version = adventure_root.find('version').text
+                first = adventure_root.find('first').text
+                location = adv
 
-        # Adventure list
-        adventure_list = []
+                new_adventure = Adventure(location, title, desc, author, email,
+                        url, version, first)
 
-        # Get adventures
-        for root, dirs, files in os.walk(self.adventures_dir):
-            for adv in dirs:
-                try:
-                    # Parse adventure file
-                    adventure_file = os.path.join(root, adv, 
-                                                'metadventure.xml')
-                    adventure_tree = XML.parse(adventure_file)
-                    adventure_root = adventure_tree.getroot()
+                adventure_list.append(new_adventure)
+            except:
+                # Error, skip and continue with next
+                continue
 
-                    # Get information
-                    title = adventure_root.find('title').text
-                    desc = adventure_root.find('description').text
-                    author = adventure_root.find('author').text
-                    email = adventure_root.find('email').text
-                    url = adventure_root.find('url').text
-                    version = adventure_root.find('version').text
-                    first = adventure_root.find('first').text
-                    location = adv
-
-                    new_adventure = Adventure(location, title, desc, author, email,
-                                            url, version, first)
-
-                    adventure_list.append(new_adventure)
-                except:
-                    # Error, skip continue with next
-                    continue
-
-        # Return adventure list
-        return adventure_list
+    # Return adventure list
+    return adventure_list
 
 class Adventure(): 
     """Adventure object."""

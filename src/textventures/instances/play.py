@@ -19,32 +19,29 @@
 
 from .. parser.adventure import scenario
 from .. parser.data import saves
+from .. import config
 
 import os, sys
 import menu
 
-class Game():
+class Play():
     """Main Game instance."""
 
-    def __init__(self, game, conf_dir):
+    def __init__(self, game):
         """This instance is in charge of playing through the adventure.
 
         Arguments:
             game -- game object
-            conf_dir -- configuration directory
         """
 
         # Define game
         self.game = game
         # Define adventure directory
-        self.directory = os.path.join(conf_dir, 'adventures',
-                                game.get_dir())
-        # Define the saves parser
-        self.saves_parser = saves.SavesParser(os.path.join(conf_dir, 
-                'saves.xml'))
+        self.directory = os.path.join(config.adventures_dir, 
+                game.get_dir())
         # Define scenario parser
         self.scenario = scenario.Scenario(os.path.join(self.directory,
-                                            game.get_progress()))
+                game.get_progress()))
 
     def __call__(self):
         # Load the scenario
@@ -69,7 +66,7 @@ class Game():
         """Display the current scenario."""
 
         # Save progress
-        self.saves_parser.save_game(self.game)
+        saves.save_game(self.game)
 
         # Clear screen
         if sys.platform.startswith('win'):

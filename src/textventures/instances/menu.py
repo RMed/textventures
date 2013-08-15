@@ -19,14 +19,12 @@
 
 from .. parser.adventure import metadata
 from .. parser.data import saves
+from .. import config
 from key_navigation import Listener, Action
-from game import Game
+from play import Play
 
 import xml.etree.ElementTree as XML
 import sys, os
-
-# Configuration directory
-CONF_DIR = os.path.join(os.path.expanduser('~'), '.textventures')
 
 def clear_screen():
     """Clear the screen when navigating the menu."""
@@ -50,11 +48,11 @@ def main_menu():
     clear_screen()
 
     # Check if the configuration directory exists
-    if not os.path.isdir(CONF_DIR):
+    if not os.path.isdir(config.textventures_dir):
         # Create the directory tree
         try:
-            os.mkdir(CONF_DIR)
-            os.mkdir(os.path.join(CONF_DIR, 'adventures'))
+            os.mkdir(config.textventures_dir)
+            os.mkdir(os.path.join(config.textventures_dir, 'adventures'))
         except:
             print 'Could not create configuration directory'
 
@@ -94,20 +92,17 @@ def load_menu():
     saves_list = []
 
     # Check if the saves file exists
-    saves_file = os.path.join(CONF_DIR, 'saves.xml')
-    if os.path.isfile(saves_file):
-        # Parse the file
-        saves_parser = saves.SavesParser(saves_file)
-        # Fill the list
-        saves_list = saves_parser.get_saves()
-    else:
+    if not os.path.isfile(config.saves_file):
         try:
             # Need to create the file
             saves_tag = XML.Element('savefile')
             saves_tree = XML.ElementTree(saves_tag)
-            saves_tree.write(saves_file)
+            saves_tree.write(config.saves_file)
         except:
             print 'Could not create the saves file'
+
+    # Fill the list
+    saves_list = saves.get_saves()
 
     # Print the saves (if any)
     if not saves_list:
@@ -166,10 +161,11 @@ def load_menu():
         progress = saves_list[game_index].get_progress()
 
         # Build game
-        loaded_game = saves.Game(adventure_id, adventure_dir, progress)
+        loaded_game = saves.Game(adventure_id, adventure_dir, 
+                progress)
 
         # Load the game
-        start_game = Game(loaded_game, CONF_DIR)
+        start_game = Play(loaded_game)
         game = start_game()
         
 def newgame_menu():
@@ -188,8 +184,7 @@ def newgame_menu():
     adventure_list = []
 
     # Get adventures
-    adventure_parser = metadata.AdventureParser(CONF_DIR)
-    adventure_list = adventure_parser.get_adventures()
+    adventure_list = metadata.get_adventures()
 
     # Print adventures
     if not adventure_list:
@@ -252,7 +247,7 @@ def newgame_menu():
         new_game = saves.Game(input_id, adventure_dir, first)
 
         # Load the game
-        start_game = Game(new_game, CONF_DIR)
+        start_game = Play(new_game)
         game = start_game()
 
 def help_menu():
@@ -319,7 +314,7 @@ def about_menu():
     print 'A simple text-based adventure system.\n'
 
     # Print license information
-    print 'TextVentures version 0.0.1' 
+    print 'TextVentures version ' + config.version
     print 'Copyright (C) 2013 Rafael Medina García (RMed)\n'
 
     print 'TextVentures comes with ABSOLUTELY NO WARRANYY. This is free'

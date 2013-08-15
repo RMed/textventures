@@ -17,85 +17,88 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+from ... import config
+
 import xml.etree.ElementTree as XML
+import os
 
-class SavesParser():
-    """Saves file parser.
+def get_saves():
+    """Get a list of saved games in the saves file."""
 
-    The XML file contains the progress on all the adventures played.
+    # Create a list of saved games
+    games_list = []
+
+    # Parse file
+    save_tree = XML.parse(config.saves_file)
+    save_root = save_tree.getroot()
+
+    # Loop through the saved games list
+    for save in save_root.findall('save'):
+        # Get the id
+        saveid = save.get('id')
+        # Get the adventure's directory
+        savedir = save.get('adventure')
+        # Get the progress
+        saveprog = save.text
+
+        # Construct the saved game
+        savedgame = Game(saveid, savedir, saveprog)
+
+        # Add the saved game to the list
+        games_list.append(savedgame)
+
+    # Return saved games list
+    return games_list
+
+def save_game(game):
+    """Save the progress of the game into the saves file.
+
+    This will search for the ID of the game and overwrite the
+    previous save, if any.
+
+    Arguments:
+        game -- Game object
     """
 
-    def __init__(self, save_file):
-        """Save parser.
+    # Check if the saves file exists
+    if not os.path.isfile(config.saves_file):
+        try:
+            # Need to create the file
+            saves_tag = XML.Element('savefile')
+            saves_tree = XML.ElementTree(saves_tag)
+            saves_tree.write(config.saves_file)
+        except:
+            print 'Could not create the saves file'
 
-        Creates an object from which to obtain the necessary information
-        of the saves file.
+    # Parse file
+    save_tree = XML.parse(config.saves_file)
+    save_root = save_tree.getroot()
 
-        Arguments:
-            save_file -- path to the xml file to parse.
-        """
-        # Define save file path
-        self.save_file = save_file
-        # Define the contents of the xml file
-        self.save_tree = XML.parse(save_file)
-        # Find the root of the xml tree
-        self.save_root = self.save_tree.getroot()
+    # Fill the list
+    saves_list = get_saves()
 
-    def get_saves(self):
-        """Get a list of saved games"""
-        # Create a list of saved games
-        games_list = []
+    # Search for ID coincidence
+    print game.get_id()
+    for index, saved_game in enumerate(save_root):
+            # Overwrite game if found
+            if (saved_game.get('id') == game.get_id()) and \
+                    (saved_game.get('adventure') == game.get_dir()):
 
-        # Loop through the saved games list
-        for save in self.save_root.findall('save'):
-            # Get the id
-            saveid = save.get('id')
-            # Get the adventure's directory
-            savedir = save.get('adventure')
-            # Get the progress
-            saveprog = save.text
+                save_root[index].text = game.get_progress()
+                save_tree.write(config.saves_file)
+                return
 
-            # Construct the saved game
-            savedgame = Game(saveid, savedir, saveprog)
+    # Add the element to the file
+    new_save = XML.Element('save')
+    new_save.set('id', game.get_id())
+    new_save.set('adventure', game.get_dir())
+    new_save.text = game.get_progress()        
 
-            # Add the saved game to the list
-            games_list.append(savedgame)
-
-        # Return saved games list
-        return games_list
-
-    def save_game(self, game):
-        """Save the progress of the game into the saves file.
-
-        This will search for the ID of the game and overwrite the
-        previous save, if any.
-
-        Arguments:
-            game -- Game object
-        """
-
-        # Search for ID coincidence
-        print game.get_id()
-        for index, saved_game in enumerate(self.save_root):
-                # Overwrite game if found
-                if (saved_game.get('id') == game.get_id()) and \
-                        (saved_game.get('adventure') == game.get_dir()):
-
-                    self.save_root[index].text = game.get_progress()
-                    self.save_tree.write(self.save_file)
-                    return
-
-        # Add the element to the file
-        new_save = XML.Element('save')
-        new_save.set('id', game.get_id())
-        new_save.set('adventure', game.get_dir())
-        new_save.text = game.get_progress()        
-
-        # Add to root
-        self.save_root.append(new_save)
+    # Add to root
+    save_root.append(new_save)
         
-        # Save to file
-        self.save_tree.write(self.save_file)
+    # Save to file
+    save_tree.write(config.saves_file)
 
 
 class Game():
