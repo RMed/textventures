@@ -58,7 +58,6 @@ class Action:
                 input_char -- pressed character
                 action_type -- type of the action (menu, load, etc)
         """
-
         self.char = input_char
         self.action = action_type
 

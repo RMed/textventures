@@ -17,4 +17,9 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import saves_parser
+from textventures.instances import menu
+
+if __name__ == "__main__":
+    # Show main menu
+    menu.main_menu()
+

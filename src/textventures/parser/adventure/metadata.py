@@ -17,62 +17,53 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+from ... import config
+
 import xml.etree.ElementTree as XML
 import os
 
-class AdventureParser():
-    """Adventure parser."""
+def get_adventures():
+    """Get a list of adventures contained in the adventure directory."""
+    # Adventure list
+    adventure_list = []
 
-    def __init__(self, conf_dir):
-        """Creates an object that obtains the information of all the
-        available adventures.
-        """
+    # Get adventures
+    for root, dirs, files in os.walk(config.adventures_dir):
+        for adv in dirs:
+            try:
+                # Parse adventure file
+                adventure_file = os.path.join(root, adv, 
+                        'metadventure.xml')
+                adventure_tree = XML.parse(adventure_file)
+                adventure_root = adventure_tree.getroot()
 
-        # Define the adventures directory
-        self.adventures_dir = os.path.join(conf_dir, 'adventures', 'stories')
+                # Get information
+                title = adventure_root.find('title').text
+                desc = adventure_root.find('description').text
+                author = adventure_root.find('author').text
+                email = adventure_root.find('email').text
+                url = adventure_root.find('url').text
+                version = adventure_root.find('version').text
+                compatible = adventure_root.find('compatible').text
+                first = adventure_root.find('first').text
+                location = adv
 
-    def get_adventures(self):
-        """Get a list of adventures."""
+                new_adventure = Adventure(location, title, desc, author, email,
+                        url, version, compatible, first)
 
-        # Adventure list
-        adventure_list = []
+                adventure_list.append(new_adventure)
+            except:
+                # Error, skip and continue with next
+                continue
 
-        # Get adventures
-        for root, dirs, files in os.walk(self.adventures_dir):
-            for adv in dirs:
-                try:
-                    # Parse adventure file
-                    adventure_file = os.path.join(root, adv, 
-                                                'metadventure.xml')
-                    adventure_tree = XML.parse(adventure_file)
-                    adventure_root = adventure_tree.getroot()
-
-                    # Get information
-                    title = adventure_root.find('title').text
-                    desc = adventure_root.find('description').text
-                    author = adventure_root.find('author').text
-                    email = adventure_root.find('email').text
-                    url = adventure_root.find('url').text
-                    version = adventure_root.find('version').text
-                    first = adventure_root.find('first').text
-                    location = adv
-
-                    new_adventure = Adventure(location, title, desc, author, email,
-                                            url, version, first)
-
-                    adventure_list.append(new_adventure)
-                except:
-                    # Error, skip continue with next
-                    continue
-
-        # Return adventure list
-        return adventure_list
+    # Return adventure list
+    return adventure_list
 
 class Adventure(): 
     """Adventure object."""
     
     def __init__(self, location, title, desc, author, email, url, 
-                    version, first):
+                    version, compatible, first):
         """Adventure constructor.
 
         Creates an object to represent the adventure
@@ -85,9 +76,9 @@ class Adventure():
             email -- email of the author
             url -- url of the author
             version -- version of the adventure
+            compatible -- TextVentures version compatibility
             first -- first scenario of the adventure
-        """
-        
+        """        
         # Define the information of the adventure
         self.location = location
         self.title = title
@@ -96,6 +87,7 @@ class Adventure():
         self.email = email
         self.url = url
         self.version = version
+        self.compatible = compatible
         self.first = first
 
     def get_location(self):
@@ -125,6 +117,10 @@ class Adventure():
     def get_version(self):
         """Get the version of the adventure."""
         return self.version
+
+    def get_compatible(self):
+        """Get the compatible version for the adventure."""
+        return self.compatible
 
     def get_first(self):
         """Get the first scenario of the adventure."""
