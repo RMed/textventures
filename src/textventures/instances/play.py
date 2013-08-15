@@ -33,19 +33,17 @@ class Play():
         Arguments:
             game -- game object
         """
-
         # Define game
         self.game = game
         # Define adventure directory
         self.directory = os.path.join(config.adventures_dir, 
                 game.get_dir())
         # Define scenario parser
-        self.scenario = scenario.Scenario(os.path.join(self.directory,
-                game.get_progress()))
+        self.scenario = game.get_progress()
 
     def __call__(self):
         # Load the scenario
-        self.load_scenario()
+        self.update_scenario(self.scenario)
 
     def update_scenario(self, new_scenario):
         """Update current scenario.
@@ -53,18 +51,18 @@ class Play():
         Arguments:
             scenario -- new scenario
         """
-
         # Update the progress
         self.game.set_progress(new_scenario)
         # Update the scenario
         self.scenario = scenario.Scenario(os.path.join(self.directory,
                 new_scenario))
+        # Update the title
+        self.game.set_title(self.scenario.get_title())
         # Load the scenario
         self.load_scenario()
 
     def load_scenario(self):
         """Display the current scenario."""
-
         # Save progress
         saves.save_game(self.game)
 
@@ -103,7 +101,6 @@ class Play():
             input_command -- command entered by the user
             action_list -- available actions for the scenario
         """
-
         # Check if the user wants to leave
         if input_command == 'exit':
             # Go to main menu
@@ -131,7 +128,6 @@ class Play():
                         self.update_scenario(action.get_content())
             
         # Did not perform any action
-
         if default_action.get_action_type() == 'text':
             # Print text
             print default_action.get_content()

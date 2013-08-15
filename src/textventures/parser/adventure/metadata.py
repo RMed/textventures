@@ -24,7 +24,6 @@ import os
 
 def get_adventures():
     """Get a list of adventures contained in the adventure directory."""
-
     # Adventure list
     adventure_list = []
 
@@ -45,11 +44,12 @@ def get_adventures():
                 email = adventure_root.find('email').text
                 url = adventure_root.find('url').text
                 version = adventure_root.find('version').text
+                compatible = adventure_root.find('compatible').text
                 first = adventure_root.find('first').text
                 location = adv
 
                 new_adventure = Adventure(location, title, desc, author, email,
-                        url, version, first)
+                        url, version, compatible, first)
 
                 adventure_list.append(new_adventure)
             except:
@@ -63,7 +63,7 @@ class Adventure():
     """Adventure object."""
     
     def __init__(self, location, title, desc, author, email, url, 
-                    version, first):
+                    version, compatible, first):
         """Adventure constructor.
 
         Creates an object to represent the adventure
@@ -76,9 +76,9 @@ class Adventure():
             email -- email of the author
             url -- url of the author
             version -- version of the adventure
+            compatible -- TextVentures version compatibility
             first -- first scenario of the adventure
-        """
-        
+        """        
         # Define the information of the adventure
         self.location = location
         self.title = title
@@ -87,6 +87,7 @@ class Adventure():
         self.email = email
         self.url = url
         self.version = version
+        self.compatible = compatible
         self.first = first
 
     def get_location(self):
@@ -116,6 +117,10 @@ class Adventure():
     def get_version(self):
         """Get the version of the adventure."""
         return self.version
+
+    def get_compatible(self):
+        """Get the compatible version for the adventure."""
+        return self.compatible
 
     def get_first(self):
         """Get the first scenario of the adventure."""

@@ -30,5 +30,5 @@ adventures_dir = os.path.join(textventures_dir, 'adventures')
 # Save file location
 saves_file = os.path.join(textventures_dir, 'saves.xml')
 # Program version
-version = '0.0.1'
+version = '0.0.2'
 

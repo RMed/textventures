@@ -35,7 +35,6 @@ class Scenario():
         Arguments:
             scenario_file -- path to the xml file to parse
         """
-
         # Define the contents of the xml file
         self.scenario_tree = XML.parse(scenario_file)
         # Find the root of the xml tree
@@ -46,8 +45,7 @@ class Scenario():
         return self.scenario_root.find('title').text
 
     def get_paragraphs(self):
-        """Get the text paragraphs to be written on screen."""
-        
+        """Get the text paragraphs to be written on screen."""        
         paragraph_list = []
 
         # Loop through the paragraphs
@@ -59,8 +57,7 @@ class Scenario():
         return paragraph_list
 
     def get_actions(self):
-        """Get the available actions for the scenario."""
-        
+        """Get the available actions for the scenario."""        
         action_list = []
 
         # Loop through the actions
@@ -116,7 +113,6 @@ class ScenarioAction():
             command_list -- commands attached to the action
             content -- jump destination or text to print
         """
-
         self.input_type = input_type
         self.action_type = action_type
         self.content = content

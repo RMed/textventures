@@ -24,7 +24,6 @@ import os
 
 def get_saves():
     """Get a list of saved games in the saves file."""
-
     # Create a list of saved games
     games_list = []
 
@@ -39,10 +38,12 @@ def get_saves():
         # Get the adventure's directory
         savedir = save.get('adventure')
         # Get the progress
-        saveprog = save.text
+        saveprog = save.get('progress')
+        # Get scenario title        
+        savetitle = save.text
 
         # Construct the saved game
-        savedgame = Game(saveid, savedir, saveprog)
+        savedgame = Game(saveid, savedir, saveprog, savetitle)
 
         # Add the saved game to the list
         games_list.append(savedgame)
@@ -59,7 +60,6 @@ def save_game(game):
     Arguments:
         game -- Game object
     """
-
     # Check if the saves file exists
     if not os.path.isfile(config.saves_file):
         try:
@@ -84,7 +84,8 @@ def save_game(game):
             if (saved_game.get('id') == game.get_id()) and \
                     (saved_game.get('adventure') == game.get_dir()):
 
-                save_root[index].text = game.get_progress()
+                save_root[index].set('progress', game.get_progress())
+                save_root[index].text = game.get_title()
                 save_tree.write(config.saves_file)
                 return
 
@@ -92,7 +93,8 @@ def save_game(game):
     new_save = XML.Element('save')
     new_save.set('id', game.get_id())
     new_save.set('adventure', game.get_dir())
-    new_save.text = game.get_progress()        
+    new_save.set('progress', game.get_progress())
+    new_save.text = game.get_title()        
 
     # Add to root
     save_root.append(new_save)
@@ -104,7 +106,7 @@ def save_game(game):
 class Game():
     """Game information."""
 
-    def __init__(self, saveid, adventuredir, progress):
+    def __init__(self, saveid, adventuredir, progress, title="None"):
         """Game object.
 
         Creates an object that represents a game.
@@ -114,6 +116,7 @@ class Game():
             adventuredir  -- directory of the adventure to which this
                saved game belongs (relative to the adventures directory).
             progress -- progress in the adventure
+            title -- title of the current scenario
         """
         # Define the identification of the saved game
         self.adv_id = saveid
@@ -121,6 +124,8 @@ class Game():
         self.adv_dir = adventuredir
         # Define the progress of the adventure
         self.adv_prog = progress
+        # Define the title of the scenario
+        self.adv_title = title
 
     def get_id(self):
         """Get ID of the saved game."""
@@ -137,4 +142,12 @@ class Game():
     def set_progress(self, new_progress):
         """Update the progress of the saved game."""
         self.adv_prog = new_progress
+
+    def get_title(self):
+        """Get the title of the saved game."""
+        return self.adv_title
+
+    def set_title(self, new_title):
+        """Update the title of the saved game."""
+        self.adv_title = new_title
 
