@@ -24,11 +24,11 @@ variables must not be modified by the program.
 import os
 
 # TextVentures directory in user folder
-textventures_dir = os.path.join(os.path.expanduser('~'), '.textventures')
+TEXTVENTURES_DIR = os.path.join(os.path.expanduser('~'), '.textventures')
 # Adventure directory
-adventures_dir = os.path.join(textventures_dir, 'adventures')
+ADVENTURES_DIR = os.path.join(TEXTVENTURES_DIR, 'adventures')
 # Save file location
-saves_file = os.path.join(textventures_dir, 'saves.xml')
+SAVES_FILE = os.path.join(TEXTVENTURES_DIR, 'saves.xml')
 # Program version
-version = '0.0.2'
+VERSION = '0.1.0'
 

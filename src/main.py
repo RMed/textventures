@@ -18,8 +18,11 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from textventures.instances import menu
+import gettext, os
 
 if __name__ == "__main__":
+    # Localization
+    gettext.install('textventures', os.path.join('textventures', 'locale'))
     # Show main menu
     menu.main_menu()
 

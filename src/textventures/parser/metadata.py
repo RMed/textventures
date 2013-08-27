@@ -17,7 +17,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-from ... import config
+from .. import config
 
 import xml.etree.ElementTree as XML
 import os
@@ -28,7 +28,7 @@ def get_adventures():
     adventure_list = []
 
     # Get adventures
-    for root, dirs, files in os.walk(config.adventures_dir):
+    for root, dirs, files in os.walk(config.ADVENTURES_DIR):
         for adv in dirs:
             try:
                 # Parse adventure file
@@ -46,10 +46,13 @@ def get_adventures():
                 version = adventure_root.find('version').text
                 compatible = adventure_root.find('compatible').text
                 first = adventure_root.find('first').text
+                locales = []
+                for lang in adventure_root.find('locale'):
+                    locales.append(lang.text)
                 location = adv
 
                 new_adventure = Adventure(location, title, desc, author, email,
-                        url, version, compatible, first)
+                        url, version, compatible, first, locales)
 
                 adventure_list.append(new_adventure)
             except:
@@ -63,7 +66,7 @@ class Adventure():
     """Adventure object."""
     
     def __init__(self, location, title, desc, author, email, url, 
-                    version, compatible, first):
+                    version, compatible, first, locales):
         """Adventure constructor.
 
         Creates an object to represent the adventure
@@ -78,6 +81,7 @@ class Adventure():
             version -- version of the adventure
             compatible -- TextVentures version compatibility
             first -- first scenario of the adventure
+            locales -- available languages for the adventure
         """        
         # Define the information of the adventure
         self.location = location
@@ -89,6 +93,7 @@ class Adventure():
         self.version = version
         self.compatible = compatible
         self.first = first
+        self.locales = locales
 
     def get_location(self):
         """Get the location of the adventure."""
@@ -125,4 +130,8 @@ class Adventure():
     def get_first(self):
         """Get the first scenario of the adventure."""
         return self.first
+    
+    def get_locales(self):
+        """Get the available languages for the adventure."""
+        return self.locales
 

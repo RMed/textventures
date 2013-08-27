@@ -1,0 +1,7 @@
+This directory will contain the .mo files that contain the translated text in the following format:
+
+lang_LANG/LC_MESSAGES/textventures.mo
+
+These directories will be automatically created by the build script and convert the .po files found in the 'po' directoryin the source root. 
+
+The file containing the original english strings is named 'eng_strings.po' and can be found in the 'po' directory in the source root.

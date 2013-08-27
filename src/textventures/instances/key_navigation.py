@@ -58,7 +58,7 @@ class Action:
                 input_char -- pressed character
                 action_type -- type of the action (menu, load, etc)
         """
-        self.char = input_char
+        self.char = input_char.lower()
         self.action = action_type
 
     def __call__(self):
