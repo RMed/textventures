@@ -1,0 +1,228 @@
+# TextVentures Spanish (es) translation.
+# Copyright (C) 2013 Rafael Medina García (RMed)
+# Rafael Medina García (RMed) <rafamedgar@gmail.com>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: TextVentures\n"
+"POT-Creation-Date: 2013-08-28 14:50+CEST\n"
+"PO-Revision-Date: 2013-08-28 14:54+0100\n"
+"Last-Translator: Rafael Medina García <rafamedgar@gmail.com>\n"
+"Language-Team: Spanish <rafamedgar@gmail.com>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: ../src/textventures/instances/menu.py:54
+msgid "Could not create configuration directory"
+msgstr "No se pudo crear el directorio de configuración"
+
+#: ../src/textventures/instances/menu.py:57
+msgid "TextVentures - Main Menu"
+msgstr "TextVentures - Menú Principal"
+
+#: ../src/textventures/instances/menu.py:61
+msgid "[N] New game"
+msgstr "[N] Nueva partida"
+
+#: ../src/textventures/instances/menu.py:62
+msgid "[L] Load game"
+msgstr "[L] Cargar partida"
+
+#: ../src/textventures/instances/menu.py:64
+msgid "[H] Help"
+msgstr "[H] Ayuda"
+
+#: ../src/textventures/instances/menu.py:65
+msgid "[A] About"
+msgstr "[A] Acerca de"
+
+#: ../src/textventures/instances/menu.py:66
+msgid "[E] Exit"
+msgstr "[E] Salir"
+
+#: ../src/textventures/instances/menu.py:86
+msgid "TextVentures - New Game"
+msgstr "TextVentures - Nueva Partida"
+
+#: ../src/textventures/instances/menu.py:97
+msgid "No adventures available"
+msgstr "No hay aventuras disponibles"
+
+#: ../src/textventures/instances/menu.py:101
+msgid "Title:"
+msgstr "Título:"
+
+#: ../src/textventures/instances/menu.py:102
+msgid "Description:"
+msgstr "Descripción:"
+
+#: ../src/textventures/instances/menu.py:103
+msgid "Author:"
+msgstr "Autor:"
+
+#: ../src/textventures/instances/menu.py:104
+msgid "Email:"
+msgstr "Email:"
+
+#: ../src/textventures/instances/menu.py:105
+msgid "URL:"
+msgstr "URL:"
+
+#: ../src/textventures/instances/menu.py:106
+msgid "Version:"
+msgstr "Versión:"
+
+#: ../src/textventures/instances/menu.py:107
+msgid "Compatibility:"
+msgstr "Compatibilidad:"
+
+#: ../src/textventures/instances/menu.py:109
+msgid "Languages:"
+msgstr "Idiomas:"
+
+#: ../src/textventures/instances/menu.py:115
+msgid "[C] Choose adventure to start"
+msgstr "[C] Elegir aventura para empezar"
+
+#: ../src/textventures/instances/menu.py:116
+#: ../src/textventures/instances/menu.py:228
+#: ../src/textventures/instances/menu.py:334
+#: ../src/textventures/instances/menu.py:370
+msgid "[B] Back"
+msgstr "[B] Atrás"
+
+#: ../src/textventures/instances/menu.py:132
+msgid "Please write an adventure number to load:"
+msgstr "Por favor, escribe un número de aventura para cargar:"
+
+#: ../src/textventures/instances/menu.py:143
+#: ../src/textventures/instances/menu.py:146
+#: ../src/textventures/instances/menu.py:255
+#: ../src/textventures/instances/menu.py:258
+msgid "Please write a valid number"
+msgstr "Por favor, escribe un número válido"
+
+#: ../src/textventures/instances/menu.py:151
+#: ../src/textventures/instances/menu.py:283
+msgid "The adventure is not compatible with this version!"
+msgstr "¡La aventura no es compatible con esta versión!"
+
+#: ../src/textventures/instances/menu.py:157
+msgid "Please choose a language:"
+msgstr "Por favor, elige un idioma:"
+
+#: ../src/textventures/instances/menu.py:160
+msgid "Please choose an available language"
+msgstr "Por favor, elige uno de los idiomas disponibles"
+
+#: ../src/textventures/instances/menu.py:171
+msgid "Please write an ID for this adventure:"
+msgstr "Por favor, escribe una ID para esta aventura:"
+
+#: ../src/textventures/instances/menu.py:193
+msgid "TextVentures - Load Game"
+msgstr "TextVentures - Cargar Partida"
+
+#: ../src/textventures/instances/menu.py:207
+msgid "Could not create the saves file"
+msgstr "No se pudo crear el archivo de guardado"
+
+#: ../src/textventures/instances/menu.py:215
+msgid "There are no saved games"
+msgstr "No hay partidas guardadas"
+
+#: ../src/textventures/instances/menu.py:220
+msgid "ID:"
+msgstr "ID:"
+
+#: ../src/textventures/instances/menu.py:221
+msgid "Adventure:"
+msgstr "Aventura:"
+
+#: ../src/textventures/instances/menu.py:222
+msgid "Progress:"
+msgstr "Progreso:"
+
+#: ../src/textventures/instances/menu.py:227
+msgid "[C] Choose game to load"
+msgstr "[C] Elegir partida para cargar"
+
+#: ../src/textventures/instances/menu.py:244
+msgid "Please write a game number to load:"
+msgstr "Por favor, escribe un número de partida para cargar:"
+
+#: ../src/textventures/instances/menu.py:299
+msgid "TextVentures - Help"
+msgstr "TextVentures - Ayuda"
+
+#: ../src/textventures/instances/menu.py:303
+msgid "--- MENU NAVIGATION ---"
+msgstr "--- NAVEGACIÓN POR EL MENÚ ---"
+
+#: ../src/textventures/instances/menu.py:304
+msgid ""
+"Navigating through TextVenture's menus is fairly simple: in the different "
+"menus, you will see the available options of the form '[B] Back' (which, in "
+"this case, takes you back to the main menu). The character between the "
+"braces is the that must be pressed in order to perform that action."
+msgstr ""
+"Navegar por el menú de TextVentures es muy sencllo: en los diferentes menús, "
+"verás las opciones disponibles en la forma '[B] Atrás' (que, en este caso, "
+"lleva de vuelta al menú principal). La letra que se encuentra entre los "
+"corchetes es la que hay que pulsar para llevar acabo la acción."
+
+#: ../src/textventures/instances/menu.py:312
+msgid "--- CHOOSING A GAME ---"
+msgstr "--- ELIGIENDO UNA PARTIDA ---"
+
+#: ../src/textventures/instances/menu.py:313
+msgid ""
+"In the New Game and Load Game menus, you are presented with several games "
+"that are available for playing. In order to play any of these games, you "
+"must first choose a game and then write the wished game number. If you enter "
+"this mode and want to leave, simply write MENU (in caps) and you will return "
+"to the menu mode."
+msgstr ""
+"En los menús de Nueva Partida  y Cargar Partida, aparece una lista de "
+"partidas disponibles para jugar. Para poder jugar a cualquiera de estas "
+"partidas, primero debes elegir una y después elegir el número de la misma. "
+"Si entras en este modo y quieres volver, simplemente escribe MENU  (en "
+"mayúsculas) y volverás al modo menú."
+
+#: ../src/textventures/instances/menu.py:322
+msgid "--- PLAYING ---"
+msgstr "--- JUGANDO ---"
+
+#: ../src/textventures/instances/menu.py:323
+msgid ""
+"While playing, the menu navigation keys will not work. Instead, you are "
+"presented with the prompt '->' and you will have to write the correct "
+"command in order to advance in the story. Note that there may be several "
+"commands for each of the scenarios. If you want to leave the game, simply "
+"write MENU (in caps) and you will be back in the main menu. The game is "
+"saved every time a scenario is loaded, so you do not need to worry about "
+"your progress being lost."
+msgstr ""
+"Cuando juegas, el las teclas de navegación del menú no funcionarán. En su "
+"lugar, aparece el símbolo '->' y tendrás que escribir el comando correcto "
+"para poder avanzar en la historia. Ten en cuenta que puede haber varios "
+"comandos por cada escenario. Si quieres salir de la partida, escribe MENU "
+"(en mayúsculas) y estarás de vuelta en el menú principal. La partida se "
+"guarda cada vez que se carga un escenario, así que no tienes que preocuparte "
+"por perder tu progreso."
+
+#: ../src/textventures/instances/menu.py:351
+msgid "TextVentures - About"
+msgstr "TextVentures - Acerca de"
+
+#: ../src/textventures/instances/menu.py:355
+msgid "A simple text-based adventure system."
+msgstr "Un sencillo sistema de aventuras por texto."
+
+#: ../src/textventures/instances/menu.py:359
+msgid "TextVentures version"
+msgstr "TextVentures versión"

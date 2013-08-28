@@ -23,7 +23,7 @@ from key_navigation import Listener, Action
 from play import Play
 
 import xml.etree.ElementTree as XML
-import sys, os, gettext
+import sys, os
 
 def clear_screen():
     """Clear the screen when navigating the menu."""
@@ -83,7 +83,7 @@ def newgame_menu():
     clear_screen()
 
     # Print header
-    print _('TextVentures - New game')
+    print _('TextVentures - New Game')
     print '\n'
 
     # Adventure list
@@ -98,14 +98,16 @@ def newgame_menu():
     else:
         for index, adventure in enumerate(adventure_list):
             print str(index) + ')'
-            print _('Title: ') + str(adventure.get_title())
-            print _('Description: ') + str(adventure.get_description())
-            print _('Author: ') + str(adventure.get_author())
-            print _('Email: ') + str(adventure.get_email())
-            print _('URL: ') + str(adventure.get_url())
-            print _('Version: ') + str(adventure.get_version())
-            print _('Compatibility: ') + str(adventure.get_compatible())
-            print _('Languages: ') + ', '.join(adventure.get_locales())
+            print _('Title:') + ' ' + str(adventure.get_title())
+            print _('Description:') + ' ' + str(adventure.get_description())
+            print _('Author:') + ' ' + str(adventure.get_author())
+            print _('Email:') + ' ' + str(adventure.get_email())
+            print _('URL:') + ' ' + str(adventure.get_url())
+            print _('Version:') + ' ' + str(adventure.get_version())
+            print _('Compatibility:') + ' ' + \
+                    str(adventure.get_compatible())
+            print _('Languages:') + ' ' + \
+                    ', '.join(adventure.get_locales())
             print '-----------------'
 
     # Show actions
@@ -126,10 +128,11 @@ def newgame_menu():
             continue
 
         # Ask for the game to load
-        input_num = raw_input(_('Please write an adventure number to load: '))
+        input_num = raw_input(
+                _('Please write an adventure number to load:') + ' ')
 
         # Check if the player wants to leave
-        if input_num == 'cancel':
+        if input_num == 'MENU':
             newgame_menu()
 
         # Check if int
@@ -151,7 +154,7 @@ def newgame_menu():
         # Ask for the language if there are two or more
         if len(adventure_list[game_index].get_locales()) >= 2:
             while True:
-                lang = raw_input(_('Please choose a language: '))
+                lang = raw_input(_('Please choose a language:') + ' ')
                 # Check if language is in the list
                 if not str(lang) in adventure_list[game_index].get_locales():
                     print _('Please choose an available language')
@@ -164,7 +167,8 @@ def newgame_menu():
                 adventure_list[game_index].get_location(), str(lang))
 
         # Ask for an ID for the game
-        input_id = raw_input(_('Please write an ID for this adventure: '))
+        input_id = raw_input(
+                _('Please write an ID for this adventure:') + ' ')
 
         # Get the first scenario
         first = adventure_list[game_index].get_first()
@@ -213,14 +217,14 @@ def load_menu():
         # Print games
         for index, save in enumerate(saves_list):
             print str(index) + ')'
-            print _('ID: ') + save.get_id()
-            print _('Adventure: ') + save.get_dir()
-            print _('Progress: ') + save.get_title()
+            print _('ID:') + ' ' + save.get_id()
+            print _('Adventure:') + ' ' + save.get_dir()
+            print _('Progress:') + ' ' + save.get_title()
             print '--------------'
 
     # Show actions
     print '\n'
-    print _('[C]hoose game to load')
+    print _('[C] Choose game to load')
     print _('[B] Back')
 
     # Wait for user input
@@ -236,10 +240,11 @@ def load_menu():
             continue
 
         # Ask for the game to load
-        input_num = raw_input(_('Please write a game number to load: '))
+        input_num = raw_input(
+                _('Please write a game number to load:') + ' ')
 
         # Check if the player wants to leave
-        if input_num == 'cancel':
+        if input_num == 'MENU':
             load_menu()
 
         # Check if int
@@ -296,33 +301,33 @@ def help_menu():
 
     # Print menu navigation help
     print _('--- MENU NAVIGATION ---')
-    print _("Navigating through TextVenture's menus is fairly simple: in the")
-    print _("different menus, you will see the available options in the form")
-    print _("'[B] Back' (which, in this case, will take you back to the main")
-    print _("menu). The character between the braces represents the key to")
-    print _("be pressed in order to perform that action.")
+    print _("Navigating through TextVenture's menus is fairly simple: "
+            "in the different menus, you will see the available options "
+            "of the form '[B] Back' (which, in this case, takes you back "
+            "to the main menu). The character between the braces is the "
+            "that must be pressed in order to perform that action.")
     print '\n'
 
     # Print game choosing help
     print _('--- CHOOSING A GAME ---')
-    print _("In the New Game and Load Game menus, you will be presented with")
-    print _("several games available to you. In order to play any of these")
-    print _("games, you must first press the specified character (usually")
-    print _("[C]) and then write the game number. If you enter this mode and")
-    print _("want to leave, simply write the word 'cancel' and you will")
-    print _("return to the menu mode.")
+    print _("In the New Game and Load Game menus, you are presented with "
+            "several games that are available for playing. In order to "
+            "play any of these games, you must first choose a game "
+            "and then write the wished game number. If you enter this "
+            "mode and want to leave, simply write MENU (in caps) and you "
+            "will return to the menu mode.")
     print '\n'
 
     # Print adventure help
     print _('--- PLAYING ---')
-    print _("While playing, the menu navigation keys will not work. Instead,")
-    print _("you will be presented with the prompt '->' and you will have to")
-    print _("write the correct command in order to advance in the story.")
-    print _("Note that there may be several commands for each scenario of")
-    print _("the adventure. If you want to leave the game, simply write the")
-    print _("word 'exit' and you will be back in the main menu.")
-    print _("The game is saved every time a scenario is loaded, so you do")
-    print _("not need to worry about your progress being lost.")
+    print _("While playing, the menu navigation keys will not work. "
+            "Instead, you are presented with the prompt '->' and you will "
+            "have to write the correct command in order to advance in the "
+            "story. Note that there may be several commands for each of "
+            "the scenarios. If you want to leave the game, simply write "
+            "MENU (in caps) and you will be back in the main "
+            "menu. The game is saved every time a scenario is loaded, so "
+            "you do not need to worry about your progress being lost.")
     print '\n'
 
     # Show actions
@@ -351,14 +356,14 @@ def about_menu():
     print '\n'
 
     # Print license information
-    print _('TextVentures version ') + config.VERSION
-    print _('Copyright (C) 2013) ')+ 'Rafael Medina García (RMed)'
+    print _('TextVentures version') + ' ' + config.VERSION
+    print 'Copyright (C) 2013 Rafael Medina García (RMed)'
     print '\n'
 
-    print _('TextVentures comes with ABSOLUTELY NO WARRANYY. This is free')
-    print _('software, and you are welcome to redistribute it under the')
-    print _('conditions set by the GNU General Public License v2.0; please')
-    print _('see the LICENSE file for details.')
+    print "TextVentures comes with ABSOLUTELY NO WARRANYY. This is free"
+    print "software, and you are welcome to redistribute it under the"
+    print "conditions set by the GNU General Public License v2.0; please"
+    print "see the LICENSE file for details."
     print '\n'
 
     # Show actions
