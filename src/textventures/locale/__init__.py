@@ -17,33 +17,6 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-"""
-This file contains global variables used across several modules. These
-variables must not be modified by the program.
-"""
-import os
-
-# Root path of the program (set at startup)
-#ROOT_PATH = ''
-
-# TextVentures directory in user folder
-TEXTVENTURES_DIR = os.path.join(os.path.expanduser('~'), '.textventures')
-
-# Adventure directory
-ADVENTURES_DIR = os.path.join(TEXTVENTURES_DIR, 'adventures')
-
-# Save file location
-SAVES_FILE = os.path.join(TEXTVENTURES_DIR, 'saves.xml')
-
-# Language configuration file
-LANG_FILE = os.path.join(TEXTVENTURES_DIR, 'lang.conf')
-# Language in use (read at startup)
-LANG = ''
-# Language list:
-# These are added manually when a new language file is created. The name
-# represents the locale code (directory).
-LANG_LIST = ['en', 'es']
-
-# Program version
-VERSION = '0.2.0'
-
+# This is a 'dummy' module. Its only purpose is to contain the locale
+# translations and be able to access them even if the program is executed
+# from a different directory.

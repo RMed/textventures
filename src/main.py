@@ -18,11 +18,17 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from textventures.instances import menu
-import gettext, os
+from textventures import config, lang
+import gettext
+
+# Set root path
+#config.ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 if __name__ == "__main__":
     # Localization
-    gettext.install('textventures', os.path.join('textventures', 'locale'))
+    gettext.install('textventures')
+    # Set language
+    lang.startup()
     # Show main menu
     menu.main_menu()
 

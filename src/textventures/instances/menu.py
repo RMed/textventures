@@ -18,7 +18,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from .. parser import metadata, saves
-from .. import config
+from .. import config, lang
 from key_navigation import Listener, Action
 from play import Play
 
@@ -60,6 +60,7 @@ def main_menu():
     # Print navigation menu
     print _('[N] New game')
     print _('[L] Load game')
+    print _('[O] Options')
     print '\n'
     print _('[H] Help')
     print _('[A] About')
@@ -287,6 +288,59 @@ def load_menu():
         start_game = Play(loaded_game)
         game = start_game()
 
+def options_menu():
+    """Display the options menu.
+
+    Allow to change the language in which the program is displayed.
+    """
+    # Clear screen
+    clear_screen()
+
+    # Print header
+    print _('TextVentures - Options')
+    print '\n'
+
+    # Print currently used language
+    print _('Language currenctly in use:') + ' ' + config.LANG
+    print '\n'
+
+    # Print available languages
+    print _('Available languages:') + ' ' + ', '.join(config.LANG_LIST)
+
+    # Show actions
+    print '\n'
+    print _('[C] Choose language')
+    print _('[B] Back')
+
+    # Wait for user input
+    while True:
+        # Key listener
+        key_listener = Listener()
+        key = key_listener()
+        # Action Parser
+        action_parser = Action(key, 'options')
+        action = action_parser()
+
+        if not action == 'c':
+            continue
+
+        # Ask for the language code
+        input_lang = raw_input(
+                _('Please choose a language code to use:') + ' ')
+
+        # Check if the player wants to leave
+        if input_lang == 'MENU':
+            options_menu()
+
+        # Check if the chosen language is in the list
+        if not input_lang in config.LANG_LIST:
+            print _('Please choose a valid language code')
+            continue
+
+        # Change language and reload menu
+        lang.change(input_lang)
+        options_menu()    
+
 def help_menu():
     """Display the help menu.
     
@@ -360,7 +414,7 @@ def about_menu():
     print 'Copyright (C) 2013 Rafael Medina García (RMed)'
     print '\n'
 
-    print "TextVentures comes with ABSOLUTELY NO WARRANYY. This is free"
+    print "TextVentures comes with ABSOLUTELY NO WARRANTY. This is free"
     print "software, and you are welcome to redistribute it under the"
     print "conditions set by the GNU General Public License v2.0; please"
     print "see the LICENSE file for details."

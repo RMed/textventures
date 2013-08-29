@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-08-28 14:53+CEST\n"
+"POT-Creation-Date: 2013-08-29 13:04+CEST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,166 +31,195 @@ msgstr ""
 msgid "[L] Load game"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:64
-msgid "[H] Help"
+#: ../src/textventures/instances/menu.py:63
+msgid "[O] Options"
 msgstr ""
 
 #: ../src/textventures/instances/menu.py:65
-msgid "[A] About"
+msgid "[H] Help"
 msgstr ""
 
 #: ../src/textventures/instances/menu.py:66
+msgid "[A] About"
+msgstr ""
+
+#: ../src/textventures/instances/menu.py:67
 msgid "[E] Exit"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:86
+#: ../src/textventures/instances/menu.py:87
 msgid "TextVentures - New Game"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:97
+#: ../src/textventures/instances/menu.py:98
 msgid "No adventures available"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:101
+#: ../src/textventures/instances/menu.py:102
 msgid "Title:"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:102
+#: ../src/textventures/instances/menu.py:103
 msgid "Description:"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:103
+#: ../src/textventures/instances/menu.py:104
 msgid "Author:"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:104
+#: ../src/textventures/instances/menu.py:105
 msgid "Email:"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:105
+#: ../src/textventures/instances/menu.py:106
 msgid "URL:"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:106
+#: ../src/textventures/instances/menu.py:107
 msgid "Version:"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:107
+#: ../src/textventures/instances/menu.py:108
 msgid "Compatibility:"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:109
+#: ../src/textventures/instances/menu.py:110
 msgid "Languages:"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:115
+#: ../src/textventures/instances/menu.py:116
 msgid "[C] Choose adventure to start"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:116
-#: ../src/textventures/instances/menu.py:228
-#: ../src/textventures/instances/menu.py:334
-#: ../src/textventures/instances/menu.py:370
+#: ../src/textventures/instances/menu.py:117
+#: ../src/textventures/instances/menu.py:229
+#: ../src/textventures/instances/menu.py:313
+#: ../src/textventures/instances/menu.py:388
+#: ../src/textventures/instances/menu.py:424
 msgid "[B] Back"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:132
+#: ../src/textventures/instances/menu.py:133
 msgid "Please write an adventure number to load:"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:143
-#: ../src/textventures/instances/menu.py:146
-#: ../src/textventures/instances/menu.py:255
-#: ../src/textventures/instances/menu.py:258
+#: ../src/textventures/instances/menu.py:144
+#: ../src/textventures/instances/menu.py:147
+#: ../src/textventures/instances/menu.py:256
+#: ../src/textventures/instances/menu.py:259
 msgid "Please write a valid number"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:151
-#: ../src/textventures/instances/menu.py:283
+#: ../src/textventures/instances/menu.py:152
+#: ../src/textventures/instances/menu.py:284
 msgid "The adventure is not compatible with this version!"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:157
+#: ../src/textventures/instances/menu.py:158
 msgid "Please choose a language:"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:160
+#: ../src/textventures/instances/menu.py:161
 msgid "Please choose an available language"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:171
+#: ../src/textventures/instances/menu.py:172
 msgid "Please write an ID for this adventure:"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:193
+#: ../src/textventures/instances/menu.py:194
 msgid "TextVentures - Load Game"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:207
+#: ../src/textventures/instances/menu.py:208
 msgid "Could not create the saves file"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:215
+#: ../src/textventures/instances/menu.py:216
 msgid "There are no saved games"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:220
+#: ../src/textventures/instances/menu.py:221
 msgid "ID:"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:221
+#: ../src/textventures/instances/menu.py:222
 msgid "Adventure:"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:222
+#: ../src/textventures/instances/menu.py:223
 msgid "Progress:"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:227
+#: ../src/textventures/instances/menu.py:228
 msgid "[C] Choose game to load"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:244
+#: ../src/textventures/instances/menu.py:245
 msgid "Please write a game number to load:"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:299
-msgid "TextVentures - Help"
-msgstr ""
-
-#: ../src/textventures/instances/menu.py:303
-msgid "--- MENU NAVIGATION ---"
+#: ../src/textventures/instances/menu.py:300
+msgid "TextVentures - Options"
 msgstr ""
 
 #: ../src/textventures/instances/menu.py:304
-msgid "Navigating through TextVenture's menus is fairly simple: in the different menus, you will see the available options of the form '[B] Back' (which, in this case, takes you back to the main menu). The character between the braces is the that must be pressed in order to perform that action."
+msgid "Language currenctly in use:"
+msgstr ""
+
+#: ../src/textventures/instances/menu.py:308
+msgid "Available languages:"
 msgstr ""
 
 #: ../src/textventures/instances/menu.py:312
+msgid "[C] Choose language"
+msgstr ""
+
+#: ../src/textventures/instances/menu.py:329
+msgid "Please choose a language code to use:"
+msgstr ""
+
+#: ../src/textventures/instances/menu.py:337
+msgid "Please choose a valid language code"
+msgstr ""
+
+#: ../src/textventures/instances/menu.py:353
+msgid "TextVentures - Help"
+msgstr ""
+
+#: ../src/textventures/instances/menu.py:357
+msgid "--- MENU NAVIGATION ---"
+msgstr ""
+
+#: ../src/textventures/instances/menu.py:358
+msgid "Navigating through TextVenture's menus is fairly simple: in the different menus, you will see the available options of the form '[B] Back' (which, in this case, takes you back to the main menu). The character between the braces is the that must be pressed in order to perform that action."
+msgstr ""
+
+#: ../src/textventures/instances/menu.py:366
 msgid "--- CHOOSING A GAME ---"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:313
+#: ../src/textventures/instances/menu.py:367
 msgid "In the New Game and Load Game menus, you are presented with several games that are available for playing. In order to play any of these games, you must first choose a game and then write the wished game number. If you enter this mode and want to leave, simply write MENU (in caps) and you will return to the menu mode."
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:322
+#: ../src/textventures/instances/menu.py:376
 msgid "--- PLAYING ---"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:323
+#: ../src/textventures/instances/menu.py:377
 msgid "While playing, the menu navigation keys will not work. Instead, you are presented with the prompt '->' and you will have to write the correct command in order to advance in the story. Note that there may be several commands for each of the scenarios. If you want to leave the game, simply write MENU (in caps) and you will be back in the main menu. The game is saved every time a scenario is loaded, so you do not need to worry about your progress being lost."
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:351
+#: ../src/textventures/instances/menu.py:405
 msgid "TextVentures - About"
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:355
+#: ../src/textventures/instances/menu.py:409
 msgid "A simple text-based adventure system."
 msgstr ""
 
-#: ../src/textventures/instances/menu.py:359
+#: ../src/textventures/instances/menu.py:413
 msgid "TextVentures version"
 msgstr ""
 

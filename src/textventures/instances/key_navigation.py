@@ -71,6 +71,9 @@ class Action:
             elif self.char == 'l':
                 # Load game menu
                 menu.load_menu()
+            elif self.char == 'o':
+                # Options menu
+                menu.options_menu()
             elif self.char == 'h':
                 # Help menu
                 menu.help_menu()
@@ -88,6 +91,15 @@ class Action:
                 menu.main_menu()
             elif self.char == 'c':
                 # Choose game
+                return self.char
+
+        elif self.action == 'options':
+            # Load menu
+            if self.char == 'b':
+                # Back to main menu
+                menu.main_menu()
+            elif self.char == 'c':
+                # Choose language
                 return self.char
 
         elif self.action == 'new':
