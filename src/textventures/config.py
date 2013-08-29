@@ -23,9 +23,6 @@ variables must not be modified by the program.
 """
 import os
 
-# Root path of the program (set at startup)
-#ROOT_PATH = ''
-
 # TextVentures directory in user folder
 TEXTVENTURES_DIR = os.path.join(os.path.expanduser('~'), '.textventures')
 

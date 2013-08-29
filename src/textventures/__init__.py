@@ -20,5 +20,4 @@
 import config
 import lang
 import instances
-import locale
 import parser

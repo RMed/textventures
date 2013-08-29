@@ -17,6 +17,15 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# This is a 'dummy' module. Its only purpose is to contain the locale
-# translations and be able to access them even if the program is executed
-# from a different directory.
+from textventures.instances import menu
+from textventures import config, lang
+import gettext, os
+
+if __name__ == "__main__":
+    # Localization
+    gettext.install('textventures')
+    # Set language
+    lang.startup()
+    # Show main menu
+    menu.main_menu()
+

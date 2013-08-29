@@ -17,26 +17,23 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-"""
-This module contains the gettext translation instances for a simplified
-access to on-the-fly language changing options.
-"""
+
+# This module contains the gettext translation instances for a simplified
+# access to on-the-fly language changing options.
 
 import gettext, os
 import config
-import locale
 
 # English (original)
-en = gettext.translation('textventures',
-        os.path.dirname(locale.__file__), languages=['en'])
+en = gettext.translation('textventures', os.path.join(os.path.dirname(
+        os.path.abspath(__file__)), 'locale'), languages=['en'])
 # Spanish
-es = gettext.translation('textventures', 
-        os.path.dirname(locale.__file__), languages=['es'])
+es = gettext.translation('textventures', os.path.join(os.path.dirname(
+        os.path.abspath(__file__)), 'locale'), languages=['es'])
 
 def startup():
     """Get the language of the program at startup."""
-    print os.path.join('.', 'locale')
-    # Get from file
+    # Get language from file
     try:
         # Open language file
         lang_file = open(config.LANG_FILE, 'r')
@@ -57,21 +54,21 @@ def startup():
     # Change language
     change(config.LANG)
 
-def change(language):
+def change(new_lang):
     """Change the language of the program.
 
     Arguments:
-        language -- language code to use
+        new_lang -- language code to use
     """
     # Open language file
     lang_file = open(config.LANG_FILE, 'w')
 
     # Check language code
-    if language == 'es':
+    if new_lang == 'es':
         # Spanish
         es.install()
         # Change language file
-        lang_file.write('es')  
+        lang_file.write('es')
         # Change language variable
         config.LANG = 'es'
     else:
