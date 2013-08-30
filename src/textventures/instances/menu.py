@@ -148,7 +148,8 @@ def newgame_menu():
             continue
 
         # Check if compatible
-        if not adventure_list[game_index].get_compatible() == config.VERSION:
+        if not config.VERSION.startswith(
+                adventure_list[game_index].get_compatible()):
             print _('The adventure is not compatible with this version!')
             continue
 
@@ -280,7 +281,8 @@ def load_menu():
                 '..', 'metadventure.xml')
         game_tree = XML.parse(game_file)
         game_root = game_tree.getroot()
-        if not game_root.find('compatible').text == config.VERSION:
+        if not config.VERSION.startswith(
+                game_root.find('compatible').text):
             print _('The adventure is not compatible with this version!')
             continue
 
