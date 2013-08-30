@@ -116,7 +116,7 @@ class Play():
             # Check the commands
             for command in action.get_command_list():
                 # Check if player's input is in the command list
-                if input_command.lower() == command.lower():
+                if input_command.lower().decode('utf8') == command.lower():
                     # Command match found
                     if action.get_action_type() == 'text':
                         # Print text
