@@ -116,7 +116,13 @@ class Play():
             # Check the commands
             for command in action.get_command_list():
                 # Check if player's input is in the command list
-                if input_command.lower().decode('utf8') == command.lower():
+                # Attempt to prevent decoding errors
+                if sys.platform.startswith('win'):
+                    is_equal = unicode(input_command.lower(),
+                            sys.stdin.encoding) == command.lower()
+                else:
+                    is_equal = input_command.lower().decode('utf8') == command.lower()
+                if is_equal:
                     # Command match found
                     if action.get_action_type() == 'text':
                         # Print text

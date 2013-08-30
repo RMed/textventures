@@ -42,6 +42,9 @@ def startup():
         # Close language file
         lang_file.close()
     except:
+        # Create TEXTVENTURES_DIR if needed
+        if not os.path.isdir(config.TEXTVENTURES_DIR):
+            os.mkdir(config.TEXTVENTURES_DIR)
         # Create language file
         lang_file = open(config.LANG_FILE, 'w')
         # Write into file (default language)
