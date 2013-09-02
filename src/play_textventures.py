@@ -19,9 +19,15 @@
 
 from textventures.instances import menu
 from textventures import config, lang
-import gettext, os
+import gettext, os, sys
+
+# Set RUN_DIR
+config.RUN_DIR = os.path.abspath(os.path.dirname(__file__))
 
 if __name__ == "__main__":
+    # Check python version
+    if sys.version_info[0] != 2 or sys.version_info[1] != 7:
+        sys.exit("This program needs Python 2.7")
     # Localization
     gettext.install('textventures')
     # Set language

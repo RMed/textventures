@@ -119,7 +119,15 @@ class Action:
 
         elif self.action == 'about':
             # About menu
-            if self.char == 'b':
+            if self.char == 'l':
+                menu.show_license()
+            elif self.char == 'b':
                 # Back to main menu
                 menu.main_menu()
+
+        elif self.action == 'license':
+            # License
+            if self.char == 'b':
+                # Back to About menu
+                menu.about_menu()
 

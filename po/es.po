@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TextVentures 0.2.0\n"
-"POT-Creation-Date: 2013-08-29 13:04+CEST\n"
-"PO-Revision-Date: 2013-08-30 11:35+0100\n"
+"POT-Creation-Date: 2013-09-02 16:52+CEST\n"
+"PO-Revision-Date: 2013-09-02 16:54+0100\n"
 "Last-Translator: Rafael Medina García <rafamedgar@gmail.com>\n"
 "Language-Team: Spanish <rafamedgar@gmail.com>\n"
 "Language: es\n"
@@ -41,8 +41,8 @@ msgid "[H] Help"
 msgstr "[H] Ayuda"
 
 #: ../src/textventures/instances/menu.py:66
-msgid "[A] About"
-msgstr "[A] Acerca de"
+msgid "[A] About & License"
+msgstr "[A] Acerca de & Licencia"
 
 #: ../src/textventures/instances/menu.py:67
 msgid "[E] Exit"
@@ -93,10 +93,11 @@ msgid "[C] Choose adventure to start"
 msgstr "[C] Elegir aventura para empezar"
 
 #: ../src/textventures/instances/menu.py:117
-#: ../src/textventures/instances/menu.py:229
-#: ../src/textventures/instances/menu.py:313
-#: ../src/textventures/instances/menu.py:388
-#: ../src/textventures/instances/menu.py:424
+#: ../src/textventures/instances/menu.py:230
+#: ../src/textventures/instances/menu.py:315
+#: ../src/textventures/instances/menu.py:390
+#: ../src/textventures/instances/menu.py:426
+#: ../src/textventures/instances/menu.py:454
 msgid "[B] Back"
 msgstr "[B] Atrás"
 
@@ -106,93 +107,93 @@ msgstr "Por favor, escribe un número de aventura para cargar:"
 
 #: ../src/textventures/instances/menu.py:144
 #: ../src/textventures/instances/menu.py:147
-#: ../src/textventures/instances/menu.py:256
-#: ../src/textventures/instances/menu.py:259
+#: ../src/textventures/instances/menu.py:257
+#: ../src/textventures/instances/menu.py:260
 msgid "Please write a valid number"
 msgstr "Por favor, escribe un número válido"
 
-#: ../src/textventures/instances/menu.py:152
-#: ../src/textventures/instances/menu.py:284
+#: ../src/textventures/instances/menu.py:153
+#: ../src/textventures/instances/menu.py:286
 msgid "The adventure is not compatible with this version!"
 msgstr "¡La aventura no es compatible con esta versión!"
 
-#: ../src/textventures/instances/menu.py:158
+#: ../src/textventures/instances/menu.py:159
 msgid "Please choose a language:"
 msgstr "Por favor, elige un idioma:"
 
-#: ../src/textventures/instances/menu.py:161
+#: ../src/textventures/instances/menu.py:162
 msgid "Please choose an available language"
 msgstr "Por favor, elige uno de los idiomas disponibles"
 
-#: ../src/textventures/instances/menu.py:172
+#: ../src/textventures/instances/menu.py:173
 msgid "Please write an ID for this adventure:"
 msgstr "Por favor, escribe una ID para esta aventura:"
 
-#: ../src/textventures/instances/menu.py:194
+#: ../src/textventures/instances/menu.py:195
 msgid "TextVentures - Load Game"
 msgstr "TextVentures - Cargar Partida"
 
-#: ../src/textventures/instances/menu.py:208
+#: ../src/textventures/instances/menu.py:209
 msgid "Could not create the saves file"
 msgstr "No se pudo crear el archivo de guardado"
 
-#: ../src/textventures/instances/menu.py:216
+#: ../src/textventures/instances/menu.py:217
 msgid "There are no saved games"
 msgstr "No hay partidas guardadas"
 
-#: ../src/textventures/instances/menu.py:221
+#: ../src/textventures/instances/menu.py:222
 msgid "ID:"
 msgstr "ID:"
 
-#: ../src/textventures/instances/menu.py:222
+#: ../src/textventures/instances/menu.py:223
 msgid "Adventure:"
 msgstr "Aventura:"
 
-#: ../src/textventures/instances/menu.py:223
+#: ../src/textventures/instances/menu.py:224
 msgid "Progress:"
 msgstr "Progreso:"
 
-#: ../src/textventures/instances/menu.py:228
+#: ../src/textventures/instances/menu.py:229
 msgid "[C] Choose game to load"
 msgstr "[C] Elegir partida para cargar"
 
-#: ../src/textventures/instances/menu.py:245
+#: ../src/textventures/instances/menu.py:246
 msgid "Please write a game number to load:"
 msgstr "Por favor, escribe un número de partida para cargar:"
 
-#: ../src/textventures/instances/menu.py:300
+#: ../src/textventures/instances/menu.py:302
 msgid "TextVentures - Options"
 msgstr "TextVentures - Opciones"
 
-#: ../src/textventures/instances/menu.py:304
+#: ../src/textventures/instances/menu.py:306
 msgid "Language currenctly in use:"
 msgstr "Idioma en uso:"
 
-#: ../src/textventures/instances/menu.py:308
+#: ../src/textventures/instances/menu.py:310
 msgid "Available languages:"
 msgstr "Idiomas disponibles:"
 
-#: ../src/textventures/instances/menu.py:312
+#: ../src/textventures/instances/menu.py:314
 msgid "[C] Choose language"
 msgstr "[C] Elegir idioma"
 
-#: ../src/textventures/instances/menu.py:329
+#: ../src/textventures/instances/menu.py:331
 msgid "Please choose a language code to use:"
 msgstr "Por favor, elige un código de idioma:"
 
-#: ../src/textventures/instances/menu.py:337
+#: ../src/textventures/instances/menu.py:339
 msgid "Please choose a valid language code"
 msgstr "Por favor, elige un código de idioma válido"
 
-#: ../src/textventures/instances/menu.py:353
+#: ../src/textventures/instances/menu.py:355
 msgid "TextVentures - Help"
 msgstr "TextVentures - Ayuda"
 
-#: ../src/textventures/instances/menu.py:357
+#: ../src/textventures/instances/menu.py:359
 msgid "--- MENU NAVIGATION ---"
 msgstr "--- NAVEGACIÓN POR EL MENÚ ---"
 
-#: ../src/textventures/instances/menu.py:358
+#: ../src/textventures/instances/menu.py:360
 msgid ""
 "Navigating through TextVenture's menus is fairly simple: in the different "
 "menus, you will see the available options of the form '[B] Back' (which, in "
@@ -204,11 +205,11 @@ msgstr ""
 "lleva de vuelta al menú principal). La letra que se encuentra entre los "
 "corchetes es la que hay que pulsar para llevar acabo la acción."
 
-#: ../src/textventures/instances/menu.py:366
+#: ../src/textventures/instances/menu.py:368
 msgid "--- CHOOSING A GAME ---"
 msgstr "--- ELIGIENDO UNA PARTIDA ---"
 
-#: ../src/textventures/instances/menu.py:367
+#: ../src/textventures/instances/menu.py:369
 msgid ""
 "In the New Game and Load Game menus, you are presented with several games "
 "that are available for playing. In order to play any of these games, you "
@@ -222,11 +223,11 @@ msgstr ""
 "Si entras en este modo y quieres volver, simplemente escribe MENU  (en "
 "mayúsculas) y volverás al modo menú."
 
-#: ../src/textventures/instances/menu.py:376
+#: ../src/textventures/instances/menu.py:378
 msgid "--- PLAYING ---"
 msgstr "--- JUGANDO ---"
 
-#: ../src/textventures/instances/menu.py:377
+#: ../src/textventures/instances/menu.py:379
 msgid ""
 "While playing, the menu navigation keys will not work. Instead, you are "
 "presented with the prompt '->' and you will have to write the correct "
@@ -244,14 +245,22 @@ msgstr ""
 "guarda cada vez que se carga un escenario, así que no tienes que preocuparte "
 "por perder tu progreso."
 
-#: ../src/textventures/instances/menu.py:405
+#: ../src/textventures/instances/menu.py:407
 msgid "TextVentures - About"
 msgstr "TextVentures - Acerca de"
 
-#: ../src/textventures/instances/menu.py:409
+#: ../src/textventures/instances/menu.py:411
 msgid "A simple text-based adventure system."
 msgstr "Un sencillo sistema de aventuras por texto."
 
-#: ../src/textventures/instances/menu.py:413
+#: ../src/textventures/instances/menu.py:415
 msgid "TextVentures version"
 msgstr "TextVentures versión"
+
+#: ../src/textventures/instances/menu.py:425
+msgid "[L] License"
+msgstr "[L] Licencia"
+
+#: ../src/textventures/instances/menu.py:443
+msgid "TextVentures - License"
+msgstr "TextVentures - Licencia"

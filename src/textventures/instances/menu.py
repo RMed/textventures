@@ -63,7 +63,7 @@ def main_menu():
     print _('[O] Options')
     print '\n'
     print _('[H] Help')
-    print _('[A] About')
+    print _('[A] About & License')
     print _('[E] Exit')
 
     # Wait for user input
@@ -417,12 +417,12 @@ def about_menu():
     print '\n'
 
     print "TextVentures comes with ABSOLUTELY NO WARRANTY. This is free"
-    print "software, and you are welcome to redistribute it under the"
-    print "conditions set by the GNU General Public License v2.0; please"
-    print "see the LICENSE file for details."
+    print "software, and you are welcome to redistribute it under certain"
+    print "conditions; press [L] for details."
     print '\n'
 
     # Show actions
+    print _('[L] License')
     print _('[B] Back')
 
     # Wait for user input
@@ -432,5 +432,33 @@ def about_menu():
         key = key_listener()
         # Action parser
         action_parser = Action(key, 'about')
+        action = action_parser()
+
+def show_license():
+    """Display the content of the License file."""
+    # Clear screen()
+    clear_screen()
+
+    # Print header 
+    print _('TextVentures - License')
+    print '\n'
+
+    # Open license file
+    license = open(os.path.join(config.RUN_DIR, 'LICENSE'), 'r')
+    # Print license file
+    for line in license:
+        print line,
+
+    # Show actions
+    print '\n'
+    print _('[B] Back')
+
+    # Wait for user input
+    while True:
+        # Key listener
+        key_listener = Listener()
+        key = key_listener()
+        # Action parser
+        action_parser = Action(key, 'license')
         action = action_parser()
 
