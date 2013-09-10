@@ -19,7 +19,7 @@
 
 from distutils.command.build import build as _build
 from distutils.core import setup
-from tools import build_trans
+from tools import build_trans, build_clean
 
 # Override the default build function to include the compilation of the
 # translation files
@@ -53,7 +53,8 @@ setup(
     # Custom commands
     cmdclass = {
         'build': build,
-        'build_locale': build_trans.BuildTranslations
+        'build_locale': build_trans.BuildTranslations,
+        'clean': build_clean.CleanBuild
     },
 
     # Build options
