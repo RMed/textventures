@@ -113,7 +113,9 @@ def newgame_menu():
 
     # Show actions
     print '\n'
-    print _('[C] Choose adventure to start')
+    if adventure_list:
+        # Print only if there are adventures available
+        print _('[C] Choose adventure to start')
     print _('[B] Back')
 
     # Wait for user input
@@ -126,6 +128,8 @@ def newgame_menu():
         action = action_parser()
         
         if not action == 'c':
+            continue
+        elif not adventure_list:
             continue
 
         # Ask for the game to load
@@ -226,7 +230,9 @@ def load_menu():
 
     # Show actions
     print '\n'
-    print _('[C] Choose game to load')
+    if saves_list:
+        # Print only if there are saved games
+        print _('[C] Choose game to load')
     print _('[B] Back')
 
     # Wait for user input
@@ -239,6 +245,8 @@ def load_menu():
         action = action_parser()
 
         if not action == 'c':
+            continue
+        elif not saves_list:
             continue
 
         # Ask for the game to load

@@ -48,7 +48,7 @@ setup(
     # Set package source root location
     package_dir = {'': 'src'},
     # Include main module
-    py_modules = ['play_textventures'],
+    py_modules = ['textventures'],
 
     # Custom commands
     cmdclass = {
