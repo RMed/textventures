@@ -20,6 +20,7 @@
 from distutils.command.build import build as _build
 from distutils.core import setup
 from tools import build_trans, build_clean
+import shutil
 
 # Override the default build function to include the compilation of the
 # translation files
@@ -29,11 +30,14 @@ class build(_build):
 
     def run(self):
         _build.run(self)
+        # Copy LICENSE and AUTHORS files
+        shutil.copy('LICENSE', self.build_lib)
+        shutil.copy('AUTHORS', self.build_lib)
 
 setup(
     # Standard information
     name='TextVentures',
-    version='0.2.0',
+    version='0.2.1',
     description='A simple text-based adventure system',
     author='Rafael Medina García (RMed)',
     author_email='rafamedgar@gmail.com',
