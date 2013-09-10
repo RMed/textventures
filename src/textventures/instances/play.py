@@ -17,8 +17,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-from .. parser.adventure import scenario
-from .. parser.data import saves
+from .. parser import scenario, saves
 from .. import config
 
 import os, sys
@@ -36,7 +35,7 @@ class Play():
         # Define game
         self.game = game
         # Define adventure directory
-        self.directory = os.path.join(config.adventures_dir, 
+        self.directory = os.path.join(config.ADVENTURES_DIR, 
                 game.get_dir())
         # Define scenario parser
         self.scenario = game.get_progress()
@@ -102,7 +101,7 @@ class Play():
             action_list -- available actions for the scenario
         """
         # Check if the user wants to leave
-        if input_command == 'exit':
+        if input_command == 'MENU':
             # Go to main menu
             menu.main_menu()
 
@@ -117,7 +116,13 @@ class Play():
             # Check the commands
             for command in action.get_command_list():
                 # Check if player's input is in the command list
-                if input_command.lower() == command.lower():
+                # Attempt to prevent decoding errors
+                if sys.platform.startswith('win'):
+                    is_equal = unicode(input_command.lower(),
+                            sys.stdin.encoding) == command.lower()
+                else:
+                    is_equal = input_command.lower().decode('utf8') == command.lower()
+                if is_equal:
                     # Command match found
                     if action.get_action_type() == 'text':
                         # Print text

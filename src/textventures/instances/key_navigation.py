@@ -58,7 +58,7 @@ class Action:
                 input_char -- pressed character
                 action_type -- type of the action (menu, load, etc)
         """
-        self.char = input_char
+        self.char = input_char.lower()
         self.action = action_type
 
     def __call__(self):
@@ -71,6 +71,9 @@ class Action:
             elif self.char == 'l':
                 # Load game menu
                 menu.load_menu()
+            elif self.char == 'o':
+                # Options menu
+                menu.options_menu()
             elif self.char == 'h':
                 # Help menu
                 menu.help_menu()
@@ -90,6 +93,15 @@ class Action:
                 # Choose game
                 return self.char
 
+        elif self.action == 'options':
+            # Load menu
+            if self.char == 'b':
+                # Back to main menu
+                menu.main_menu()
+            elif self.char == 'c':
+                # Choose language
+                return self.char
+
         elif self.action == 'new':
             # New game menu
             if self.char == 'b':
@@ -107,7 +119,15 @@ class Action:
 
         elif self.action == 'about':
             # About menu
-            if self.char == 'b':
+            if self.char == 'l':
+                menu.show_license()
+            elif self.char == 'b':
                 # Back to main menu
                 menu.main_menu()
+
+        elif self.action == 'license':
+            # License
+            if self.char == 'b':
+                # Back to About menu
+                menu.about_menu()
 
