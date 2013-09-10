@@ -17,7 +17,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-from ... import config
+from .. import config
 
 import xml.etree.ElementTree as XML
 import os
@@ -28,7 +28,7 @@ def get_saves():
     games_list = []
 
     # Parse file
-    save_tree = XML.parse(config.saves_file)
+    save_tree = XML.parse(config.SAVES_FILE)
     save_root = save_tree.getroot()
 
     # Loop through the saved games list
@@ -61,17 +61,17 @@ def save_game(game):
         game -- Game object
     """
     # Check if the saves file exists
-    if not os.path.isfile(config.saves_file):
+    if not os.path.isfile(config.SAVES_FILE):
         try:
             # Need to create the file
             saves_tag = XML.Element('savefile')
             saves_tree = XML.ElementTree(saves_tag)
-            saves_tree.write(config.saves_file)
+            saves_tree.write(config.SAVES_FILE)
         except:
             print 'Could not create the saves file'
 
     # Parse file
-    save_tree = XML.parse(config.saves_file)
+    save_tree = XML.parse(config.SAVES_FILE)
     save_root = save_tree.getroot()
 
     # Fill the list
@@ -86,7 +86,7 @@ def save_game(game):
 
                 save_root[index].set('progress', game.get_progress())
                 save_root[index].text = game.get_title()
-                save_tree.write(config.saves_file)
+                save_tree.write(config.SAVES_FILE)
                 return
 
     # Add the element to the file
@@ -100,7 +100,7 @@ def save_game(game):
     save_root.append(new_save)
         
     # Save to file
-    save_tree.write(config.saves_file)
+    save_tree.write(config.SAVES_FILE)
 
 
 class Game():

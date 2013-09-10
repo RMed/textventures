@@ -17,4 +17,33 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import saves
+from distutils.core import Command
+import shutil, os
+
+class CleanBuild(Command):
+    description = "clean previous builds"
+    user_options = []
+
+    def initialize_options(self):
+        self.cwd = None
+ 
+    def finalize_options(self):
+        self.cwd = os.getcwd()
+
+    def run(self):
+        # Check if in root directory
+        assert os.getcwd() == self.cwd, 'Must be in root directory: %s' \
+                % self.cwd
+
+        # Get build and dist paths
+        build = os.path.join(self.cwd, 'build')
+        dist = os.path.join(self.cwd, 'dist')
+
+        # Check if build exists
+        if os.path.isdir(build):
+            shutil.rmtree(build)
+
+        # Check if dist exists
+        if os.path.isdir(dist):
+            shutil.rmtree(dist)
+

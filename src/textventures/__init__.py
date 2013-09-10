@@ -18,5 +18,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import config
+import lang
 import instances
 import parser

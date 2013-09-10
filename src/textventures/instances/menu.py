@@ -17,9 +17,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-from .. parser.adventure import metadata
-from .. parser.data import saves
-from .. import config
+from .. parser import metadata, saves
+from .. import config, lang
 from key_navigation import Listener, Action
 from play import Play
 
@@ -46,23 +45,26 @@ def main_menu():
     clear_screen()
 
     # Check if the configuration directory exists
-    if not os.path.isdir(config.textventures_dir):
+    if not os.path.isdir(config.TEXTVENTURES_DIR):
         # Create the directory tree
         try:
-            os.mkdir(config.textventures_dir)
-            os.mkdir(os.path.join(config.textventures_dir, 'adventures'))
+            os.mkdir(config.TEXTVENTURES_DIR)
+            os.mkdir(config.ADVENTURES_DIR)
         except:
-            print 'Could not create configuration directory'
+            print _('Could not create configuration directory')
 
     # Print program information
-    print 'TextVentures - Main Menu\n'
+    print _('TextVentures - Main Menu')
+    print '\n'
 
     # Print navigation menu
-    print '[N]ew game'
-    print '[L]oad game\n'
-    print '[H]elp'
-    print '[A]bout'
-    print '[E]xit'
+    print _('[N] New game')
+    print _('[L] Load game')
+    print _('[O] Options')
+    print '\n'
+    print _('[H] Help')
+    print _('[A] About & License')
+    print _('[E] Exit')
 
     # Wait for user input
     while True:
@@ -82,7 +84,8 @@ def newgame_menu():
     clear_screen()
 
     # Print header
-    print 'TextVentures - New game\n'
+    print _('TextVentures - New Game')
+    print '\n'
 
     # Adventure list
     adventure_list = []
@@ -92,22 +95,28 @@ def newgame_menu():
 
     # Print adventures
     if not adventure_list:
-        print 'No adventures available'
+        print _('No adventures available')
     else:
         for index, adventure in enumerate(adventure_list):
             print str(index) + ')'
-            print 'Title: ' + str(adventure.get_title())
-            print 'Description: ' + str(adventure.get_description())
-            print 'Author: ' + str(adventure.get_author())
-            print 'Email: ' + str(adventure.get_email())
-            print 'URL: ' + str(adventure.get_url())
-            print 'Version: ' + str(adventure.get_version())
-            print 'Compatibility: ' + str(adventure.get_compatible())
+            print _('Title:') + ' ' + str(adventure.get_title())
+            print _('Description:') + ' ' + str(adventure.get_description())
+            print _('Author:') + ' ' + str(adventure.get_author())
+            print _('Email:') + ' ' + str(adventure.get_email())
+            print _('URL:') + ' ' + str(adventure.get_url())
+            print _('Version:') + ' ' + str(adventure.get_version())
+            print _('Compatibility:') + ' ' + \
+                    str(adventure.get_compatible())
+            print _('Languages:') + ' ' + \
+                    ', '.join(adventure.get_locales())
             print '-----------------'
 
     # Show actions
-    print '\n[C]hoose adventure to start'
-    print '[B]ack'
+    print '\n'
+    if adventure_list:
+        # Print only if there are adventures available
+        print _('[C] Choose adventure to start')
+    print _('[B] Back')
 
     # Wait for user input
     while True:
@@ -120,12 +129,15 @@ def newgame_menu():
         
         if not action == 'c':
             continue
+        elif not adventure_list:
+            continue
 
         # Ask for the game to load
-        input_num = raw_input('Please write an adventure number to load: ')
+        input_num = raw_input(
+                _('Please write an adventure number to load:') + ' ')
 
         # Check if the player wants to leave
-        if input_num == 'cancel':
+        if input_num == 'MENU':
             newgame_menu()
 
         # Check if int
@@ -133,22 +145,36 @@ def newgame_menu():
             game_index = int(input_num)
             # Check if out of bounds
             if game_index >= len(adventure_list):
-                print 'Please write a valid number'
+                print _('Please write a valid number')
                 continue
         except:
-            print 'Please write a valid number'
+            print _('Please write a valid number')
             continue
 
         # Check if compatible
-        if not adventure_list[game_index].get_compatible() == config.version:
-            print 'The adventure is not compatible with this version!'
+        if not config.VERSION.startswith(
+                adventure_list[game_index].get_compatible()):
+            print _('The adventure is not compatible with this version!')
             continue
 
+        # Ask for the language if there are two or more
+        if len(adventure_list[game_index].get_locales()) >= 2:
+            while True:
+                lang = raw_input(_('Please choose a language:') + ' ')
+                # Check if language is in the list
+                if not str(lang) in adventure_list[game_index].get_locales():
+                    print _('Please choose an available language')
+                else:
+                    break
+                    
+
         # Get directory
-        adventure_dir = adventure_list[game_index].get_location()
+        adventure_dir = os.path.join(
+                adventure_list[game_index].get_location(), str(lang))
 
         # Ask for an ID for the game
-        input_id = raw_input('Please write an ID for this adventure: ')
+        input_id = raw_input(
+                _('Please write an ID for this adventure:') + ' ')
 
         # Get the first scenario
         first = adventure_list[game_index].get_first()
@@ -170,20 +196,21 @@ def load_menu():
     clear_screen()
 
     # Print header
-    print 'TextVentures - Load Game\n'
+    print _('TextVentures - Load Game')
+    print '\n'
 
     # Saves list
     saves_list = []
 
     # Check if the saves file exists
-    if not os.path.isfile(config.saves_file):
+    if not os.path.isfile(config.SAVES_FILE):
         try:
             # Need to create the file
             saves_tag = XML.Element('savefile')
             saves_tree = XML.ElementTree(saves_tag)
-            saves_tree.write(config.saves_file)
+            saves_tree.write(config.SAVES_FILE)
         except:
-            print 'Could not create the saves file'
+            print _('Could not create the saves file')
 
     # Fill the list
     saves_list = saves.get_saves()
@@ -191,19 +218,22 @@ def load_menu():
     # Print the saves (if any)
     if not saves_list:
         # No saved games
-        print 'There are no saved games'
+        print _('There are no saved games')
     else:
         # Print games
         for index, save in enumerate(saves_list):
             print str(index) + ')'
-            print 'ID: ' + save.get_id()
-            print 'Adventure: ' + save.get_dir()
-            print 'Progress: ' + save.get_title()
+            print _('ID:') + ' ' + save.get_id()
+            print _('Adventure:') + ' ' + save.get_dir()
+            print _('Progress:') + ' ' + save.get_title()
             print '--------------'
 
     # Show actions
-    print '\n[C]hoose game to load'
-    print '[B]ack'
+    print '\n'
+    if saves_list:
+        # Print only if there are saved games
+        print _('[C] Choose game to load')
+    print _('[B] Back')
 
     # Wait for user input
     while True:
@@ -216,12 +246,15 @@ def load_menu():
 
         if not action == 'c':
             continue
+        elif not saves_list:
+            continue
 
         # Ask for the game to load
-        input_num = raw_input('Please write a game number to load: ')
+        input_num = raw_input(
+                _('Please write a game number to load:') + ' ')
 
         # Check if the player wants to leave
-        if input_num == 'cancel':
+        if input_num == 'MENU':
             load_menu()
 
         # Check if int
@@ -229,10 +262,10 @@ def load_menu():
             game_index = int(input_num)
             # Check if out of bounds
             if game_index >= len(saves_list):
-                print 'Please write a valid number'
+                print _('Please write a valid number')
                 continue
         except:
-            print 'Please write a valid number'
+            print _('Please write a valid number')
             continue
 
         # Get ID
@@ -252,17 +285,71 @@ def load_menu():
                 progress, title)
 
         # Check if compatible
-        game_file = os.path.join(config.adventures_dir, adventure_dir,
-                'metadventure.xml')
+        game_file = os.path.join(config.ADVENTURES_DIR, adventure_dir,
+                '..', 'metadventure.xml')
         game_tree = XML.parse(game_file)
         game_root = game_tree.getroot()
-        if not game_root.find('compatible').text == config.version:
-            print 'The adventure is not compatible with this version!'
+        if not config.VERSION.startswith(
+                game_root.find('compatible').text):
+            print _('The adventure is not compatible with this version!')
             continue
 
         # Load the game
         start_game = Play(loaded_game)
         game = start_game()
+
+def options_menu():
+    """Display the options menu.
+
+    Allow to change the language in which the program is displayed.
+    """
+    # Clear screen
+    clear_screen()
+
+    # Print header
+    print _('TextVentures - Options')
+    print '\n'
+
+    # Print currently used language
+    print _('Language currenctly in use:') + ' ' + config.LANG
+    print '\n'
+
+    # Print available languages
+    print _('Available languages:') + ' ' + ', '.join(config.LANG_LIST)
+
+    # Show actions
+    print '\n'
+    print _('[C] Choose language')
+    print _('[B] Back')
+
+    # Wait for user input
+    while True:
+        # Key listener
+        key_listener = Listener()
+        key = key_listener()
+        # Action Parser
+        action_parser = Action(key, 'options')
+        action = action_parser()
+
+        if not action == 'c':
+            continue
+
+        # Ask for the language code
+        input_lang = raw_input(
+                _('Please choose a language code to use:') + ' ')
+
+        # Check if the player wants to leave
+        if input_lang == 'MENU':
+            options_menu()
+
+        # Check if the chosen language is in the list
+        if not input_lang in config.LANG_LIST:
+            print _('Please choose a valid language code')
+            continue
+
+        # Change language and reload menu
+        lang.change(input_lang)
+        options_menu()    
 
 def help_menu():
     """Display the help menu.
@@ -273,38 +360,42 @@ def help_menu():
     clear_screen()
 
     # Print header
-    print 'TextVentures - Help\n'
+    print _('TextVentures - Help')
+    print '\n'
 
     # Print menu navigation help
-    print '--- MENU NAVIGATION ---'
-    print "Navigating through TextVenture's menus is fairly simple: in the"
-    print "different menus, you will see the available options in the form"
-    print "'[B]ack' (which, in this case, will take you back to the main"
-    print "menu). The character between the braces represents the key to"
-    print "be pressed in order to perform that action.\n"
+    print _('--- MENU NAVIGATION ---')
+    print _("Navigating through TextVenture's menus is fairly simple: "
+            "in the different menus, you will see the available options "
+            "of the form '[B] Back' (which, in this case, takes you back "
+            "to the main menu). The character between the braces is the "
+            "that must be pressed in order to perform that action.")
+    print '\n'
 
     # Print game choosing help
-    print '--- CHOOSING A GAME ---'
-    print "In the New Game and Load Game menus, you will be presented with"
-    print "several games available to you. In order to play any of these"
-    print "games, you must first press the specified character (usually"
-    print "[C]) and then write the game number. If you enter this mode and"
-    print "want to leave, simply write the word 'cancel' and you will"
-    print "return to the menu mode.\n"
+    print _('--- CHOOSING A GAME ---')
+    print _("In the New Game and Load Game menus, you are presented with "
+            "several games that are available for playing. In order to "
+            "play any of these games, you must first choose a game "
+            "and then write the wished game number. If you enter this "
+            "mode and want to leave, simply write MENU (in caps) and you "
+            "will return to the menu mode.")
+    print '\n'
 
     # Print adventure help
-    print '--- PLAYING ---'
-    print "While playing, the menu navigation keys will not work. Instead,"
-    print "you will be presented with the prompt '->' and you will have to"
-    print "write the correct command in order to advance in the story."
-    print "Note that there may be several commands for each scenario of"
-    print "the adventure. If you want to leave the game, simply write the"
-    print "word 'exit' and you will be back in the main menu."
-    print "The game is saved every time a scenario is loaded, so you do"
-    print "not need to worry about your progress being lost.\n"
+    print _('--- PLAYING ---')
+    print _("While playing, the menu navigation keys will not work. "
+            "Instead, you are presented with the prompt '->' and you will "
+            "have to write the correct command in order to advance in the "
+            "story. Note that there may be several commands for each of "
+            "the scenarios. If you want to leave the game, simply write "
+            "MENU (in caps) and you will be back in the main "
+            "menu. The game is saved every time a scenario is loaded, so "
+            "you do not need to worry about your progress being lost.")
+    print '\n'
 
     # Show actions
-    print '[B]ack'
+    print _('[B] Back')
 
     # Wait for user input
     while True:
@@ -321,22 +412,26 @@ def about_menu():
     clear_screen()
 
     # Print header
-    print 'TextVentures - About\n'
+    print _('TextVentures - About')
+    print '\n'
 
     # Print general information
-    print 'A simple text-based adventure system.\n'
+    print _('A simple text-based adventure system.')
+    print '\n'
 
     # Print license information
-    print 'TextVentures version ' + config.version
-    print 'Copyright (C) 2013 Rafael Medina García (RMed)\n'
+    print _('TextVentures version') + ' ' + config.VERSION
+    print 'Copyright (C) 2013 Rafael Medina García (RMed)'
+    print '\n'
 
-    print 'TextVentures comes with ABSOLUTELY NO WARRANYY. This is free'
-    print 'software, and you are welcome to redistribute it under the'
-    print 'conditions set by the GNU General Public License v2.0; please'
-    print 'see the LICENSE file for details.\n'
+    print "TextVentures comes with ABSOLUTELY NO WARRANTY. This is free"
+    print "software, and you are welcome to redistribute it under certain"
+    print "conditions; press [L] for details."
+    print '\n'
 
     # Show actions
-    print '[B]ack'
+    print _('[L] License')
+    print _('[B] Back')
 
     # Wait for user input
     while True:
@@ -345,5 +440,33 @@ def about_menu():
         key = key_listener()
         # Action parser
         action_parser = Action(key, 'about')
+        action = action_parser()
+
+def show_license():
+    """Display the content of the License file."""
+    # Clear screen()
+    clear_screen()
+
+    # Print header 
+    print _('TextVentures - License')
+    print '\n'
+
+    # Open license file
+    license = open(os.path.join(config.RUN_DIR, 'LICENSE'), 'r')
+    # Print license file
+    for line in license:
+        print line,
+
+    # Show actions
+    print '\n'
+    print _('[B] Back')
+
+    # Wait for user input
+    while True:
+        # Key listener
+        key_listener = Listener()
+        key = key_listener()
+        # Action parser
+        action_parser = Action(key, 'license')
         action = action_parser()
 
