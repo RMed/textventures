@@ -17,8 +17,9 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-from .. parser import metadata, saves
-from .. import config, lang
+from parser import metadata, saves
+import config, lang, license
+
 from key_navigation import Listener, Action
 from play import Play
 
@@ -451,11 +452,8 @@ def show_license():
     print _('TextVentures - License')
     print '\n'
 
-    # Open license file
-    license = open(os.path.join(config.RUN_DIR, 'LICENSE'), 'r')
-    # Print license file
-    for line in license:
-        print line,
+    # Print the content of the license.py module
+    print license.content    
 
     # Show actions
     print '\n'

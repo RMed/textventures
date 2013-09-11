@@ -17,8 +17,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-from .. parser import scenario, saves
-from .. import config
+from parser import scenario, saves
+import config
 
 import os, sys
 import menu

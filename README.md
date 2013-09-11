@@ -35,6 +35,6 @@ The resulting **.mo** files can be located under *build/textventures/locale/*.
 In order to run TextVentures, simply navigate to the ***build*** directory (after successufully building the source) and type:
 
 ```
-$ python play_textventures.py
+$ python textventures
 ```
 

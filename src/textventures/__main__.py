@@ -17,12 +17,11 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-from textventures.instances import menu
-from textventures import config, lang
+from instances import menu
+import config, lang
 import gettext, os, sys
 
-# Set RUN_DIR
-config.RUN_DIR = os.path.abspath(os.path.dirname(__file__))
+print os.path.abspath(__file__)
 
 if __name__ == "__main__":
     # Check python version

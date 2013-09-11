@@ -23,9 +23,6 @@ variables must not be modified by the program.
 """
 import os
 
-# Running directory
-RUN_DIR = ''
-
 # TextVentures directory in user folder
 TEXTVENTURES_DIR = os.path.join(os.path.expanduser('~'), '.textventures')
 
@@ -45,5 +42,5 @@ LANG = ''
 LANG_LIST = ['en', 'es']
 
 # Program version
-VERSION = '0.2.1'
+VERSION = '0.2.2'
 
