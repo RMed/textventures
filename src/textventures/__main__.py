@@ -21,8 +21,6 @@ from instances import menu
 import config, lang
 import gettext, os, sys
 
-print os.path.abspath(__file__)
-
 if __name__ == "__main__":
     # Check python version
     if sys.version_info[0] != 2 or sys.version_info[1] != 7:
